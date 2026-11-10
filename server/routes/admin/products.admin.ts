@@ -50,7 +50,7 @@ const listQuery = z.object({
 router.get('/', validate(listQuery, 'query'), async (req, res, next) => {
   try {
     const { catalog, category, status, q, page } = req.query as any as z.infer<typeof listQuery>;
-    let query = supabase.from('products').select(SELECT, { count: 'exact' }).order('created_at', { ascending: false });
+    let query = supabase.from('products').select(SELECT, { count: 'exact' }).order('created_at', { ascending: false }).order('id', { ascending: true });
     if (catalog) query = query.eq('catalog_slug', catalog);
     if (category) query = query.eq('category_id', category);
     if (status === 'activo') query = query.eq('is_active', true);

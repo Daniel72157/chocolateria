@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Copy, Pencil, Plus, Trash2 } from 'lucide-react';
-import { api } from '../../lib/api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { api, ApiError } from '../../lib/api';
+import { toast } from '../../store/toast';
 import { useAdminGet, useAdminMutation, json, confirmDelete } from '../../hooks/useAdmin';
 import { useCatalogs } from '../../hooks/useProducts';
 import { cop } from '../../lib/format';
@@ -21,7 +23,22 @@ export default function Products() {
   (['catalog', 'category', 'status', 'q'] as const).forEach((k) => f[k] && p.set(k, f[k]));
   const { data } = useAdminGet<{ items: Product[]; total: number; pageSize: number }>(['products', p.toString()], `/admin/products?${p}`);
   const inv = [['admin', 'products'], ['featured']];
-  const patch = useAdminMutation(({ id, ...b }: { id: string; isActive?: boolean; isAvailable?: boolean; isFeatured?: boolean }) => api(`/admin/products/${id}`, json('PATCH', b)), { invalidate: inv });
+  const qc = useQueryClient();
+  type Quick = { id: string; isActive?: boolean; isAvailable?: boolean; isFeatured?: boolean };
+  type List = { items: Product[]; total: number; pageSize: number };
+  const listKey = ['admin', 'products', p.toString()];
+  // Actualización optimista: el interruptor cambia al instante con un solo clic.
+  const patch = useMutation({
+    mutationFn: ({ id, ...b }: Quick) => api(`/admin/products/${id}`, json('PATCH', b)),
+    onMutate: async ({ id, isActive, isAvailable, isFeatured }: Quick) => {
+      await qc.cancelQueries({ queryKey: ['admin', 'products'] });
+      const prev = qc.getQueryData<List>(listKey);
+      qc.setQueryData<List>(listKey, (d) => d && { ...d, items: d.items.map((it) => it.id !== id ? it : { ...it, ...(isActive !== undefined && { is_active: isActive }), ...(isAvailable !== undefined && { is_available: isAvailable }), ...(isFeatured !== undefined && { is_featured: isFeatured }) }) });
+      return { prev };
+    },
+    onError: (e, _v, ctx) => { if (ctx?.prev) qc.setQueryData(listKey, ctx.prev); toast.error(e instanceof ApiError ? e.message : 'No se pudo guardar'); },
+    onSettled: () => { inv.forEach((k) => qc.invalidateQueries({ queryKey: k })); qc.invalidateQueries({ queryKey: ['admin-stats'] }); },
+  });
   const del = useAdminMutation((id: string) => api(`/admin/products/${id}`, json('DELETE')), { invalidate: inv, ok: 'Producto eliminado' });
   const dup = useAdminMutation((id: string) => api<{ id: string }>(`/admin/products/${id}/duplicate`, json('POST')), { invalidate: inv, ok: 'Producto duplicado (queda inactivo)' });
   const cats = catalogs?.find((c) => c.slug === f.catalog)?.categories ?? [];
