@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #3b1f1a;
+  --tierra: #6e4b40;
+  --bosque: #064e44;
+  --oro: #bb8833;
+  --arena: #e8c9b2;
+  --crema: #f2e9de;
+  --papel: #fbf6ef;
+  --rojo: #a53d2b;
+  --gutter: clamp(16px, 4vw, 40px);
+}
+
+/* Fuentes: Bubbleboddy Neue y Monotype Corsiva son de pago / de prueba. Si las tienes con licencia,
+   copia los archivos a public/fonts/ con estos nombres y se usan solas; si no, se ven las alternativas libres. */
+@font-face { font-family: 'Bubbleboddy Neue Trial'; font-weight: 100 900; font-display: swap; src: local('Bubbleboddy Neue Trial'), local('Bubbleboddy Neue'), url('/fonts/BubbleboddyNeue-Trial.woff2') format('woff2'); }
+@font-face { font-family: 'Monotype Corsiva'; font-weight: 400; font-style: normal; font-display: swap; src: local('Monotype Corsiva'), local('MonotypeCorsiva'), url('/fonts/MonotypeCorsiva.woff2') format('woff2'); }
+@font-face { font-family: 'Chancery Z003'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/Chancery-Z003.woff2') format('woff2'); }
+@font-face { font-family: 'Intro Rust'; font-weight: 400; font-style: normal; font-display: swap; src: url('/fonts/IntroRust-Base.woff2') format('woff2'); }
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-crema font-sans text-ink antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  h1, h2, h3, h4 { @apply font-display font-semibold text-ink; letter-spacing: -0.015em; line-height: 1.05; text-wrap: balance; }
+  strong, b, th, legend, summary, .font-bold, .font-semibold, .font-extrabold { font-family: theme('fontFamily.display'); font-weight: 600; letter-spacing: 0; }
+  p { text-wrap: pretty; }
+  img { display: block; max-width: 100%; }
+  :focus-visible { outline: 3px solid var(--oro); outline-offset: 3px; }
+  .on-dark :focus-visible { outline-color: var(--crema); }
+  ::selection { background: var(--arena); color: var(--ink); }
+  [hidden] { display: none !important; }
+}
+
+@layer components {
+  .wrap { margin-inline: auto; width: 100%; max-width: 1280px; padding-inline: var(--gutter); }
+  .t-display { font-size: clamp(2.6rem, 7vw, 6.5rem); line-height: 0.98; letter-spacing: -0.02em; }
+  .t-h2 { font-size: clamp(2rem, 4.6vw, 4rem); line-height: 1.02; letter-spacing: -0.02em; }
+  .t-h3 { font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.1; }
+  .t-lead { font-size: clamp(1.15rem, 1.7vw, 1.5rem); line-height: 1.4; }
+  .t-small { font-size: 0.9375rem; line-height: 1.45; }
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum'; }
+
+  /* Botones: una sola forma (píldora), planos y sin sombra */
+  .btn { @apply inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full px-6 font-semibold transition duration-200 ease-out active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply bg-bosque text-papel hover:bg-ink; }
+  .btn-gold { @apply bg-oro text-ink hover:bg-arena; }
+  .btn-soft { @apply bg-arena text-ink hover:bg-oro; }
+  .btn-paper { @apply bg-papel text-ink hover:bg-crema; }
+  .btn-light { @apply bg-crema text-ink hover:bg-arena; }
+  .btn-wa { background: #25d366; color: #06210f; }
+  .btn-wa:hover { background: #1fbd5a; }
+  .btn-danger { @apply bg-rojo text-papel hover:bg-ink; }
+  .btn-sm { @apply min-h-[40px] px-4 text-[0.9375rem]; }
+  .btn-round { @apply inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-bosque text-papel transition duration-200 hover:bg-ink active:scale-90 disabled:opacity-40; }
+
+  /* Objetos de papel: planos, con bordes recortados (sin sombras ni contornos) */
+  .paper { background: var(--papel); color: var(--ink); }
+  .paper-100 { background: var(--crema); color: var(--ink); }
+  .scallop-b, .scallop-t, .zig-b { position: relative; }
+  .scallop-b::after, .scallop-t::before, .zig-b::after { content: ''; position: absolute; left: 0; right: 0; pointer-events: none; }
+  .scallop-b::after { bottom: -10px; height: 10px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10'%3E%3Ccircle cx='12' cy='0' r='11' fill='%23FBF6EF'/%3E%3C/svg%3E") repeat-x; }
+  .scallop-t::before { top: -10px; height: 10px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10'%3E%3Ccircle cx='12' cy='10' r='11' fill='%23FBF6EF'/%3E%3C/svg%3E") repeat-x; }
+  .zig-b::after { bottom: -12px; height: 12px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpolygon points='0,0 24,0 12,12' fill='%23FBF6EF'/%3E%3C/svg%3E") repeat-x; }
+  .scallop-b.paper-100::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='10'%3E%3Ccircle cx='12' cy='0' r='11' fill='%23F2E9DE'/%3E%3C/svg%3E"); }
+  .zig-b.paper-100::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpolygon points='0,0 24,0 12,12' fill='%23F2E9DE'/%3E%3C/svg%3E"); }
+  .leader { flex: 1 1 auto; min-width: 16px; align-self: end; margin-bottom: 0.4em; border-bottom: 4px dotted var(--tierra); }
+
+  /* Campos de formulario: rellenos, sin contorno decorativo */
+  .field { @apply w-full rounded-none bg-crema px-4 text-ink placeholder:text-tierra; min-height: 52px; border: 2px solid transparent; }
+  .field:focus { outline: none; border-color: var(--oro); }
+  .field[aria-invalid='true'] { border-color: var(--rojo); }
+  textarea.field { padding-block: 14px; min-height: 120px; }
+  .label { @apply mb-2 block text-[0.9375rem] font-semibold; }
+  .err { @apply mt-1 text-[0.9375rem] font-semibold text-rojo; }
+
+  .hover-zoom img { transition: transform 0.4s ease-out; }
+  .hover-zoom:hover img { transform: scale(1.03); }
+  .sr-only-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+}
+
+@keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.35); } 100% { transform: scale(1); } }
+.bump { animation: bump 0.35s ease-out; }
+@keyframes drift { from { transform: translateY(0) scale(1); } to { transform: translateY(-10px) scale(1.04); } }
+.drift { animation: drift 9s ease-in-out infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+}
+
+@keyframes drift-slow { from { transform: scale(1); } to { transform: scale(1.06); } }
+.drift-slow { animation: drift-slow 22s ease-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) { .drift-slow { animation: none !important; } }
