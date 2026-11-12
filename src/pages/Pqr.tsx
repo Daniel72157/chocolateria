@@ -38,7 +38,7 @@ export default function Pqr() {
               <button type="button" className="btn btn-soft mt-6" onClick={() => setDone(null)}>Enviar otro mensaje</button>
             </div>
           ) : (
-            <form onSubmit={onSubmit} noValidate className="grid gap-4">
+            <form onSubmit={onSubmit} noValidate className="on-dark grid gap-4 bg-bosque p-6 text-papel md:p-10 [&_.err]:text-oro [&_.field]:!border-tierra/30 [&_.field]:!bg-papel [&_.field]:!text-ink [&_.label]:text-papel [&_.t-small]:text-arena">
               <div>
                 <label htmlFor="pqr-type" className="label">Tipo de mensaje</label>
                 <select id="pqr-type" className="field" {...register('type')}>
@@ -53,7 +53,7 @@ export default function Pqr() {
               <Textarea label="Cuéntanos" rows={6} error={errors.body?.message} {...register('body')} />
               <input type="text" tabIndex={-1} autoComplete="off" aria-hidden className="hidden" {...register('website')} />
               {fail && <p role="alert" className="err">{fail}</p>}
-              <button type="submit" className="btn btn-primary min-h-[56px]" disabled={isSubmitting}>{isSubmitting ? 'Enviando…' : 'Enviar'}</button>
+              <button type="submit" className="btn btn-gold min-h-[56px]" disabled={isSubmitting}>{isSubmitting ? 'Enviando…' : 'Enviar'}</button>
             </form>
           )}
         </div>
