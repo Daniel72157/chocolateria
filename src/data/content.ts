@@ -29,8 +29,3 @@ export const PLANT = {
   address: 'Calle 5C #53D-57, piso 3, barrio Gala, Bogotá',
   hours: ['Lunes a viernes: 8 am a 5 pm'],
 };
-export const SHOP = {
-  phone: '302 555 6304', tel: '+573025556304',
-  address: 'Calle 60 #57-22, local 104, Centro Comercial Quirinal, Bogotá',
-  hours: ['Lunes a sábado: 10 am a 7 pm', 'Domingos: 10 am a 6 pm'],
-};

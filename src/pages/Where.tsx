@@ -3,6 +3,7 @@ import Seo from '../components/ui/Seo';
 import Reveal from '../components/ui/Reveal';
 import { useSettings } from '../hooks/useProducts';
 import { phonePretty, waUrl } from '../lib/format';
+import { PLANT } from '../data/content';
 
 // Ficha de Google Maps: TIENDA ZURYCH (4.6541269, -74.086998)
 const MAP_EMBED = 'https://www.google.com/maps?q=TIENDA+ZURYCH&ll=4.6541269,-74.086998&z=17&output=embed';
@@ -49,6 +50,20 @@ export default function Where() {
           </div>
         </section>
       )}
+
+      <section aria-labelledby="planta" className="bg-bosque py-14 text-papel md:py-24">
+        <Reveal className="wrap max-w-[900px]">
+          <h2 id="planta" className="t-h2 text-[clamp(2rem,4vw,3.5rem)] text-papel">Planta de producción</h2>
+          <p className="t-lead mt-4 max-w-[52ch]">Si lo que deseas es una asesoría especializada en cacao, comprar al por mayor, realizar un proceso de maquila o hablar con gerencia, contáctanos.</p>
+          <p className="t-lead mt-6 flex items-start gap-3"><MapPin className="mt-1 shrink-0 text-oro" aria-hidden /> {PLANT.address}</p>
+          <h3 className="mt-8 font-display text-xl text-arena">Horarios</h3>
+          <p className="num mt-2">{PLANT.hours.map((h) => <span key={h} className="block">{h}</span>)}</p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a className="btn btn-wa" target="_blank" rel="noopener noreferrer" href={`https://wa.me/${PLANT.tel.slice(1)}?text=${encodeURIComponent('Hola, quiero información de la planta de producción.')}`}><MessageCircle size={20} aria-hidden /> WhatsApp</a>
+            <a className="btn btn-gold" href={`tel:${PLANT.tel}`}><Phone size={20} aria-hidden /> {PLANT.phone}</a>
+          </div>
+        </Reveal>
+      </section>
 
       <section aria-labelledby="zona" className="wrap py-14 md:py-24">
         <Reveal><h2 id="zona" className="t-h2 text-[clamp(1.9rem,3.4vw,3rem)]">Una historia que comienza en la tierra</h2></Reveal>

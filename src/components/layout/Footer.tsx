@@ -46,7 +46,6 @@ export default function Footer() {
             <Link to="/donde-encontrarnos" className="hover:underline">Dónde encontrarnos</Link>
             <Link to="/blog" className="hover:underline">Blog</Link>
             <Link to="/reconocimientos" className="hover:underline">Reconocimientos</Link>
-            <Link to="/contacto" className="hover:underline">Contacto</Link>
             <Link to="/pqr" className="hover:underline">PQR</Link>
             <Link to="/privacidad" className="hover:underline">Privacidad</Link>
           </p>

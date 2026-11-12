@@ -11,7 +11,6 @@ import ProductDetail from './pages/ProductDetail';
 import Where from './pages/Where';
 import Community from './pages/Community';
 import Recognitions from './pages/Recognitions';
-import Contacto from './pages/Contacto';
 import Pqr from './pages/Pqr';
 import PostDetail from './pages/PostDetail';
 import Cart from './pages/Cart';
@@ -48,7 +47,6 @@ export default function App() {
               <Route path="producto/:slug" element={<ProductDetail />} />
               <Route path="donde-encontrarnos" element={<Where />} />
               <Route path="reconocimientos" element={<Recognitions />} />
-              <Route path="contacto" element={<Contacto />} />
               <Route path="pqr" element={<Pqr />} />
               <Route path="blog" element={<Community />} />
               <Route path="blog/:id" element={<PostDetail />} />
