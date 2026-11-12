@@ -175,3 +175,19 @@ export const deleteUploadInput = z.object({
   bucket: z.enum(['products', 'posts', 'catalogs']),
   path: z.string().min(3),
 });
+
+export const PQR_TYPES = ['peticion', 'queja', 'reclamo', 'sugerencia', 'felicitacion'] as const;
+export const PQR_STATUSES = ['nuevo', 'en_proceso', 'resuelto'] as const;
+export const PQR_LABEL: Record<(typeof PQR_TYPES)[number], string> = {
+  peticion: 'Petición', queja: 'Queja', reclamo: 'Reclamo', sugerencia: 'Sugerencia', felicitacion: 'Felicitación',
+};
+export const pqrInput = z.object({
+  type: z.enum(PQR_TYPES),
+  name: z.string().trim().min(2, 'Escribe tu nombre').max(80),
+  phone: z.string().trim().max(20).optional(),
+  email: z.string().email('Correo inválido').optional().or(z.literal('')),
+  body: z.string().trim().min(10, 'Cuéntanos un poco más (mínimo 10 letras)').max(2000),
+  website: z.string().max(0).optional(),
+});
+export type PqrInput = z.infer<typeof pqrInput>;
+export const pqrPatch = z.object({ status: z.enum(PQR_STATUSES) });

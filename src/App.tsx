@@ -10,6 +10,9 @@ import Catalog from './pages/Catalog';
 import ProductDetail from './pages/ProductDetail';
 import Where from './pages/Where';
 import Community from './pages/Community';
+import Recognitions from './pages/Recognitions';
+import Contacto from './pages/Contacto';
+import Pqr from './pages/Pqr';
 import PostDetail from './pages/PostDetail';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
@@ -24,6 +27,7 @@ const ProductForm = lazy(() => import('./pages/admin/ProductForm'));
 const Categories = lazy(() => import('./pages/admin/Categories'));
 const Posts = lazy(() => import('./pages/admin/Posts'));
 const PostForm = lazy(() => import('./pages/admin/PostForm'));
+const AdminPqr = lazy(() => import('./pages/admin/Pqr'));
 const Comments = lazy(() => import('./pages/admin/Comments'));
 const Orders = lazy(() => import('./pages/admin/Orders'));
 const OrderDetail = lazy(() => import('./pages/admin/OrderDetail'));
@@ -43,6 +47,9 @@ export default function App() {
               <Route path="tienda/:catalogSlug" element={<Catalog />} />
               <Route path="producto/:slug" element={<ProductDetail />} />
               <Route path="donde-encontrarnos" element={<Where />} />
+              <Route path="reconocimientos" element={<Recognitions />} />
+              <Route path="contacto" element={<Contacto />} />
+              <Route path="pqr" element={<Pqr />} />
               <Route path="blog" element={<Community />} />
               <Route path="blog/:id" element={<PostDetail />} />
               <Route path="carrito" element={<Cart />} />
@@ -64,6 +71,7 @@ export default function App() {
               <Route path="publicaciones/nueva" element={<PostForm />} />
               <Route path="publicaciones/:id" element={<PostForm />} />
               <Route path="comentarios" element={<Comments />} />
+              <Route path="pqr" element={<AdminPqr />} />
               <Route path="pedidos" element={<Orders />} />
               <Route path="pedidos/:id" element={<OrderDetail />} />
               <Route path="ajustes" element={<Settings />} />

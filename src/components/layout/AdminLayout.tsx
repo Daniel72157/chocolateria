@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { LayoutDashboard, Package, Tags, Newspaper, MessageSquare, ClipboardList, Settings, LogOut, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, Package, Tags, Newspaper, MessageSquare, ClipboardList, Inbox, Settings, LogOut, ExternalLink } from 'lucide-react';
 import { api } from '../../lib/api';
 import { supabase } from '../../lib/supabase';
 import Toasts from '../ui/Toasts';
@@ -12,6 +12,7 @@ const LINKS = [
   { to: '/admin/categorias', label: 'Categorías', Icon: Tags },
   { to: '/admin/publicaciones', label: 'Blog', Icon: Newspaper },
   { to: '/admin/comentarios', label: 'Comentarios', Icon: MessageSquare, badge: true },
+  { to: '/admin/pqr', label: 'PQR', Icon: Inbox },
   { to: '/admin/pedidos', label: 'Pedidos', Icon: ClipboardList },
   { to: '/admin/ajustes', label: 'Ajustes', Icon: Settings },
 ];

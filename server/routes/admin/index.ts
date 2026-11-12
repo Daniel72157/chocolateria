@@ -3,6 +3,7 @@ import products from './products.admin.js';
 import categories from './categories.admin.js';
 import posts from './posts.admin.js';
 import comments from './comments.admin.js';
+import pqr from './pqr.admin.js';
 import orders from './orders.admin.js';
 import settings from './settings.admin.js';
 import uploads from '../uploads.routes.js';
@@ -14,6 +15,7 @@ router.use('/categories', categories);
 router.use('/posts', posts);
 router.use('/comments', comments);
 router.use('/orders', orders);
+router.use('/pqr', pqr);
 router.use('/uploads', uploads);
 router.use('/', settings); // /stats, /settings, /about, /catalogs/:slug
 export default router;

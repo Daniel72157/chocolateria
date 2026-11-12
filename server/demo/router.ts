@@ -4,7 +4,7 @@
 import { Router } from 'express';
 import { validate } from '../middleware/validate.js';
 import { writeLimiter } from '../middleware/rateLimit.js';
-import { commentInput, orderInput, reactionDelete, reactionInput, type OrderInput } from '../../shared/schemas.js';
+import { pqrInput, commentInput, orderInput, reactionDelete, reactionInput, type OrderInput } from '../../shared/schemas.js';
 import * as seed from '../../shared/seed.js';
 import type { Post, PostComment, ReactionType } from '../../shared/types.js';
 import { PAYMENT_LABEL, priceOrder } from '../lib/orders.js';
@@ -99,6 +99,11 @@ router.post('/orders', writeLimiter, validate(orderInput), (req, res, next) => {
     });
     res.status(201).json({ data: { code, total: priced.total, whatsappUrl: waLink(seed.settings.whatsapp_number, message) } });
   } catch (e) { next(e); }
+});
+
+router.post('/pqr', writeLimiter, validate(pqrInput), (req, res) => {
+  if (req.body.website) return res.status(400).json({ error: { code: 'spam', message: 'Solicitud inválida' } });
+  res.status(201).json({ data: { ok: true, code: `PQR-${String(Math.floor(Math.random() * 100000)).padStart(5, '0')}` } });
 });
 
 router.use('/admin', (_req, res) =>

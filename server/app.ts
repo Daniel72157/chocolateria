@@ -10,6 +10,7 @@ import catalogs from './routes/catalogs.routes.js';
 import products from './routes/products.routes.js';
 import posts from './routes/posts.routes.js';
 import orders from './routes/orders.routes.js';
+import pqr from './routes/pqr.routes.js';
 import settings from './routes/settings.routes.js';
 import sitemap from './routes/sitemap.routes.js';
 import admin from './routes/admin/index.js';
@@ -33,6 +34,7 @@ if (isDemo) {
   app.use('/api/products', products);
   app.use('/api/posts', posts);
   app.use('/api/orders', writeLimiter, orders);
+  app.use('/api/pqr', pqr);
   app.use('/api/admin', requireAdmin, admin);
 }
 

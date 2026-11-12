@@ -274,3 +274,21 @@ on conflict (id) do nothing;
 
 -- Correo de contacto de la tienda
 alter table store_settings add column if not exists email text;
+
+-- =========================================
+-- PQR (peticiones, quejas, reclamos, sugerencias y felicitaciones)
+-- Sin políticas RLS: solo el backend accede.
+-- =========================================
+create table pqr (
+  id uuid primary key default gen_random_uuid(),
+  code text not null unique default ('PQR-' || lpad(floor(random()*100000)::int::text, 5, '0')),
+  type text not null check (type in ('peticion','queja','reclamo','sugerencia','felicitacion')),
+  name text not null check (char_length(name) between 2 and 80),
+  phone text,
+  email text,
+  body text not null check (char_length(body) between 10 and 2000),
+  status text not null default 'nuevo' check (status in ('nuevo','en_proceso','resuelto')),
+  created_at timestamptz not null default now()
+);
+create index on pqr (status, created_at desc);
+alter table pqr enable row level security;

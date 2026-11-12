@@ -57,6 +57,9 @@ export default function Navbar() {
           </div>
           <NavLink to="/donde-encontrarnos" className={link}>Dónde encontrarnos</NavLink>
           <NavLink to="/blog" className={link}>Blog</NavLink>
+          <NavLink to="/reconocimientos" className={link}>Reconocimientos</NavLink>
+          <NavLink to="/contacto" className={link}>Contacto</NavLink>
+          <NavLink to="/pqr" className={link}>PQR</NavLink>
         </div>
 
         <div className="flex items-center gap-2">
@@ -75,7 +78,7 @@ export default function Navbar() {
             <button type="button" onClick={() => setMenu(false)} aria-label="Cerrar menú" className="flex h-12 w-12 items-center justify-center"><X size={28} /></button>
           </div>
           <ul className="mt-6 flex flex-1 flex-col gap-1 font-display text-3xl">
-            {[['/', 'Inicio'], ['/tienda/canasta-familiar', 'Canasta familiar'], ['/tienda/snacks', 'Snacks'], ['/tienda/industrial', 'Industrial'], ['/donde-encontrarnos', 'Dónde encontrarnos'], ['/blog', 'Blog']].map(([to, label]) => (
+            {[['/', 'Inicio'], ['/tienda/canasta-familiar', 'Canasta familiar'], ['/tienda/snacks', 'Snacks'], ['/tienda/industrial', 'Industrial'], ['/donde-encontrarnos', 'Dónde encontrarnos'], ['/blog', 'Blog'], ['/reconocimientos', 'Reconocimientos'], ['/contacto', 'Contacto'], ['/pqr', 'PQR']].map(([to, label]) => (
               <li key={to}><Link to={to} className="block py-2">{label}</Link></li>
             ))}
           </ul>
