@@ -10,20 +10,37 @@ import type { OpeningHour } from '../../../shared/types';
 
 type AboutRow = { id?: string; title: string; body: string; imageUrl: string };
 
+function HoursEditor({ id, hours, setHours }: { id: string; hours: OpeningHour[]; setHours: (h: OpeningHour[]) => void }) {
+  return (
+    <div className="grid gap-3 sm:col-span-2">
+      <p className="label">Horarios</p>
+      {hours.map((h, i) => (
+        <div key={i} className="grid grid-cols-[1fr_1fr_auto] items-end gap-2">
+          <input aria-label={`Días ${i + 1}`} id={`${id}-d${i}`} className="field !bg-papel" placeholder="Lunes a viernes" value={h.day} onChange={(e) => setHours(hours.map((x, k) => (k === i ? { ...x, day: e.target.value } : x)))} />
+          <input aria-label={`Horas ${i + 1}`} className="field !bg-papel" placeholder="8:00 a. m. – 7:00 p. m." value={h.hours} onChange={(e) => setHours(hours.map((x, k) => (k === i ? { ...x, hours: e.target.value } : x)))} />
+          <button type="button" aria-label="Quitar horario" onClick={() => setHours(hours.filter((_, k) => k !== i))} className="flex h-11 w-11 items-center justify-center rounded-full bg-papel text-rojo"><Trash2 size={18} /></button>
+        </div>
+      ))}
+      <button type="button" className="btn btn-soft btn-sm justify-self-start" onClick={() => setHours([...hours, { day: '', hours: '' }])}><Plus size={16} aria-hidden /> Agregar horario</button>
+    </div>
+  );
+}
+
 export default function Settings() {
   const { data: s } = useSettings();
   const { data: about } = useAbout();
-  const [f, setF] = useState({ storeName: '', whatsappNumber: '', email: '', deliveryFee: 0, freeDeliveryFrom: '' as string | number, address: '', instagramUrl: '', facebookUrl: '', mapsEmbedUrl: '', orderMessageFooter: '' });
+  const [f, setF] = useState({ storeName: '', whatsappNumber: '', email: '', deliveryFee: 0, freeDeliveryFrom: '' as string | number, address: '', instagramUrl: '', facebookUrl: '', orderMessageFooter: '', plantWhatsappNumber: '', plantEmail: '', plantAddress: '' });
   const [hours, setHours] = useState<OpeningHour[]>([]);
+  const [plantHours, setPlantHours] = useState<OpeningHour[]>([]);
   const [blocks, setBlocks] = useState<AboutRow[]>([]);
-  useEffect(() => { if (s) { setF({ storeName: s.store_name, whatsappNumber: s.whatsapp_number, email: s.email ?? '', deliveryFee: s.delivery_fee, freeDeliveryFrom: s.free_delivery_from ?? '', address: s.address ?? '', instagramUrl: s.instagram_url ?? '', facebookUrl: s.facebook_url ?? '', mapsEmbedUrl: s.maps_embed_url ?? '', orderMessageFooter: s.order_message_footer ?? '' }); setHours(s.opening_hours); } }, [s]);
+  useEffect(() => { if (s) { setF({ storeName: s.store_name, whatsappNumber: s.whatsapp_number, email: s.email ?? '', deliveryFee: s.delivery_fee, freeDeliveryFrom: s.free_delivery_from ?? '', address: s.address ?? '', instagramUrl: s.instagram_url ?? '', facebookUrl: s.facebook_url ?? '', orderMessageFooter: s.order_message_footer ?? '', plantWhatsappNumber: s.plant_whatsapp_number ?? '', plantEmail: s.plant_email ?? '', plantAddress: s.plant_address ?? '' }); setHours(s.opening_hours); setPlantHours(s.plant_opening_hours ?? []); } }, [s]);
   useEffect(() => { if (about) setBlocks(about.map((b) => ({ id: b.id, title: b.title, body: b.body, imageUrl: b.image_url ?? '' }))); }, [about]);
 
   const saveS = useAdminMutation((p: unknown) => api('/admin/settings', json('PUT', p)), { invalidate: [['settings']], ok: 'Ajustes guardados' });
   const saveA = useAdminMutation((p: unknown) => api('/admin/about', json('PUT', p)), { invalidate: [['about']], ok: 'Quiénes somos (Inicio) guardada' });
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const r = settingsInput.safeParse({ ...f, freeDeliveryFrom: f.freeDeliveryFrom === '' ? null : Number(f.freeDeliveryFrom), deliveryFee: Number(f.deliveryFee), openingHours: hours });
+    const r = settingsInput.safeParse({ ...f, freeDeliveryFrom: f.freeDeliveryFrom === '' ? null : Number(f.freeDeliveryFrom), deliveryFee: Number(f.deliveryFee), openingHours: hours, plantOpeningHours: plantHours, mapsEmbedUrl: null });
     if (!r.success) return toast.error(r.error.issues[0].message);
     saveS.mutate(r.data);
   };
@@ -34,26 +51,26 @@ export default function Settings() {
     <div className="grid max-w-4xl gap-10">
       <form onSubmit={submit} className="grid gap-5">
         <h1 className="t-h2 text-4xl">Ajustes de la tienda</h1>
-        <div className="grid gap-4 bg-crema p-5 sm:grid-cols-2">
+        <fieldset className="grid gap-4 bg-crema p-5 sm:grid-cols-2"><legend className="mb-2 font-display text-2xl">General</legend>
           {T('storeName', 'Nombre de la tienda')}
-          {T('whatsappNumber', 'WhatsApp (con indicativo, solo dígitos)', { inputMode: 'numeric', placeholder: '573001234567' })}
           {T('email', 'Correo de contacto', { type: 'email' })}
           {T('deliveryFee', 'Costo de domicilio (COP)', { type: 'number', min: 0 })}
           {T('freeDeliveryFrom', 'Domicilio gratis desde (COP, vacío = nunca)', { type: 'number', min: 0 })}
-          <div className="sm:col-span-2">{T('address', 'Dirección')}</div>
           {T('instagramUrl', 'Instagram (URL)', { type: 'url' })}{T('facebookUrl', 'Facebook (URL)', { type: 'url' })}
-          <div className="sm:col-span-2">{T('mapsEmbedUrl', 'Mapa (URL de inserción de Google Maps)', { type: 'url' })}</div>
           <div className="sm:col-span-2">{T('orderMessageFooter', 'Pie del mensaje de WhatsApp')}</div>
-        </div>
-        <fieldset className="grid gap-3 bg-crema p-5"><legend className="mb-2 font-display text-2xl">Horarios</legend>
-          {hours.map((h, i) => (
-            <div key={i} className="grid grid-cols-[1fr_1fr_auto] items-end gap-2">
-              <input aria-label={`Días ${i + 1}`} className="field !bg-papel" placeholder="Lunes a viernes" value={h.day} onChange={(e) => setHours(hours.map((x, k) => (k === i ? { ...x, day: e.target.value } : x)))} />
-              <input aria-label={`Horas ${i + 1}`} className="field !bg-papel" placeholder="8:00 a. m. – 7:00 p. m." value={h.hours} onChange={(e) => setHours(hours.map((x, k) => (k === i ? { ...x, hours: e.target.value } : x)))} />
-              <button type="button" aria-label="Quitar horario" onClick={() => setHours(hours.filter((_, k) => k !== i))} className="flex h-11 w-11 items-center justify-center rounded-full bg-papel text-rojo"><Trash2 size={18} /></button>
-            </div>
-          ))}
-          <button type="button" className="btn btn-soft btn-sm justify-self-start" onClick={() => setHours([...hours, { day: '', hours: '' }])}><Plus size={16} aria-hidden /> Agregar horario</button>
+        </fieldset>
+        <fieldset className="grid gap-4 bg-crema p-5 sm:grid-cols-2"><legend className="mb-2 font-display text-2xl">Tienda (punto físico)</legend>
+          <p className="t-small sm:col-span-2">Los pedidos de la tienda virtual llegan a este WhatsApp. El mapa se ubica con la dirección escrita.</p>
+          {T('whatsappNumber', 'WhatsApp / teléfono (con indicativo, solo dígitos)', { inputMode: 'numeric', placeholder: '573001234567' })}
+          <div className="sm:col-span-2">{T('address', 'Dirección')}</div>
+          <HoursEditor id="h-shop" hours={hours} setHours={setHours} />
+        </fieldset>
+        <fieldset className="grid gap-4 bg-crema p-5 sm:grid-cols-2"><legend className="mb-2 font-display text-2xl">Planta de producción</legend>
+          <p className="t-small sm:col-span-2">Asesorías, compras al por mayor, maquila y gerencia. El mapa se ubica con la dirección escrita.</p>
+          {T('plantWhatsappNumber', 'WhatsApp / teléfono (con indicativo, solo dígitos)', { inputMode: 'numeric', placeholder: '573001234567' })}
+          {T('plantEmail', 'Correo de la planta (opcional)', { type: 'email' })}
+          <div className="sm:col-span-2">{T('plantAddress', 'Dirección')}</div>
+          <HoursEditor id="h-plant" hours={plantHours} setHours={setPlantHours} />
         </fieldset>
         <button className="btn btn-primary justify-self-start" disabled={saveS.isPending}>Guardar ajustes</button>
       </form>

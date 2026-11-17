@@ -74,6 +74,10 @@ export type StoreSettings = {
   facebook_url: string | null;
   maps_embed_url: string | null;
   order_message_footer: string | null;
+  plant_whatsapp_number: string | null;
+  plant_email: string | null;
+  plant_address: string | null;
+  plant_opening_hours: OpeningHour[];
 };
 export type AboutSection = { id: string; title: string; body: string; image_url: string | null; sort_order: number };
 

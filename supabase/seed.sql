@@ -2,7 +2,7 @@
 begin;
 
 -- Ajustes de la tienda (reemplaza el número de WhatsApp por el real)
-update store_settings set store_name='Chocolate Zurych', whatsapp_number='573132584586', email='zurychrb@hotmail.com', delivery_fee=0, free_delivery_from=null, address='Calle 5C # 53S-57, barrio Quirinal, Bogotá', opening_hours='[]'::jsonb, order_message_footer='¡Gracias por tu pedido!' where id=1;
+update store_settings set store_name='Chocolate Zurych', whatsapp_number='573025556304', email='zurychrb@hotmail.com', delivery_fee=0, free_delivery_from=null, address='Calle 60 #57-22, local 104, Centro Comercial Quirinal, Bogotá', opening_hours='[{"day":"Lunes a sábado","hours":"10:00 a. m. – 7:00 p. m."},{"day":"Domingos","hours":"10:00 a. m. – 6:00 p. m."}]'::jsonb, plant_whatsapp_number='573132584586', plant_email=null, plant_address='Calle 5C #53D-57, piso 3, barrio Gala, Bogotá', plant_opening_hours='[{"day":"Lunes a viernes","hours":"8:00 a. m. – 5:00 p. m."}]'::jsonb, order_message_footer='¡Gracias por tu pedido!' where id=1;
 
 -- Catálogos
 update catalogs set name='Canasta familiar', tagline='Chocolate artesanal para el hogar', description='Chocolate elaborado con cacao de agricultores de Santander, cultivado con prácticas orgánicas y agroecológicas.', cover_url='/photos/mujer-desayuno.webp', accent='bosque', sort_order=1 where slug='canasta-familiar';

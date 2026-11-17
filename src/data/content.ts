@@ -23,9 +23,3 @@ export type Interview = { title: string; outlet: string; date: string; url?: str
 export const INTERVIEWS: Interview[] = [
   // { title: 'Título de la entrevista', outlet: 'Medio', date: '2025-05-10', url: 'https://…', image: '/interviews/entrevista-1.webp', summary: 'Resumen corto' },
 ];
-
-export const PLANT = {
-  phone: '313 258 4586', tel: '+573132584586',
-  address: 'Calle 5C #53D-57, piso 3, barrio Gala, Bogotá',
-  hours: ['Lunes a viernes: 8 am a 5 pm'],
-};

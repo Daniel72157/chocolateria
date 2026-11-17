@@ -279,7 +279,7 @@ alter table store_settings add column if not exists email text;
 -- PQR (peticiones, quejas, reclamos, sugerencias y felicitaciones)
 -- Sin políticas RLS: solo el backend accede.
 -- =========================================
-create table pqr (
+create table if not exists pqr (
   id uuid primary key default gen_random_uuid(),
   code text not null unique default ('PQR-' || lpad(floor(random()*100000)::int::text, 5, '0')),
   type text not null check (type in ('peticion','queja','reclamo','sugerencia','felicitacion')),
@@ -290,5 +290,25 @@ create table pqr (
   status text not null default 'nuevo' check (status in ('nuevo','en_proceso','resuelto')),
   created_at timestamptz not null default now()
 );
-create index on pqr (status, created_at desc);
+create index if not exists pqr_status_created_idx on pqr (status, created_at desc);
 alter table pqr enable row level security;
+
+-- =========================================
+-- Planta de producción: mismos datos que la tienda (punto físico).
+-- Se puede ejecutar varias veces sin problema.
+-- =========================================
+alter table store_settings add column if not exists plant_whatsapp_number text;
+alter table store_settings add column if not exists plant_email text;
+alter table store_settings add column if not exists plant_address text;
+alter table store_settings add column if not exists plant_opening_hours jsonb not null default '[]';
+update store_settings set
+  plant_whatsapp_number = coalesce(plant_whatsapp_number, '573132584586'),
+  plant_address = coalesce(plant_address, 'Calle 5C #53D-57, piso 3, barrio Gala, Bogotá'),
+  plant_opening_hours = case when plant_opening_hours = '[]'::jsonb
+    then '[{"day":"Lunes a viernes","hours":"8:00 a. m. – 5:00 p. m."}]'::jsonb else plant_opening_hours end
+where id = 1;
+-- Opcional: datos de la tienda (punto físico). Quita los "--" para aplicarlos.
+update store_settings set whatsapp_number = '573025556304',
+address = 'Calle 60 #57-22, local 104, Centro Comercial Quirinal, Bogotá',
+opening_hours = '[{"day":"Lunes a sábado","hours":"10:00 a. m. – 7:00 p. m."},{"day":"Domingos","hours":"10:00 a. m. – 6:00 p. m."}]'::jsonb
+where id = 1;

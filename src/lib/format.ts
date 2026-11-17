@@ -16,3 +16,6 @@ export const waUrl = (phone: string, text: string) => `https://wa.me/${phone.rep
 export const TAG_LABEL: Record<string, string> = {
   nuevo: 'Nuevo', 'mas-vendido': 'Más vendido', 'sin-azucar': 'Sin azúcar', vegano: 'Vegano',
 };
+/** Mapa de Google que se ubica con la dirección escrita (no necesita clave de API). */
+export const mapEmbedUrl = (address: string) => `https://maps.google.com/maps?q=${encodeURIComponent(address)}&z=17&output=embed`;
+export const mapLinkUrl = (address: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
