@@ -192,6 +192,10 @@ export const settingsInput = z.object({
   plantOpeningHours: z.array(z.object({ day: z.string().min(1), hours: z.string().min(1) })).max(10).default([]),
   instagramUrl: z.string().url().or(z.literal('')).nullable().optional(),
   facebookUrl: z.string().url().or(z.literal('')).nullable().optional(),
+  tiktokUrl: z.string().url().or(z.literal('')).nullable().optional(),
+  plantInstagramUrl: z.string().url().or(z.literal('')).nullable().optional(),
+  plantFacebookUrl: z.string().url().or(z.literal('')).nullable().optional(),
+  plantTiktokUrl: z.string().url().or(z.literal('')).nullable().optional(),
   mapsEmbedUrl: z.string().url().or(z.literal('')).nullable().optional(),
   orderMessageFooter: z.string().max(200).nullable().optional(),
 });

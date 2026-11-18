@@ -30,7 +30,7 @@ export default function Modal({ open, onClose, label, children, side, className 
   if (!open) return null;
   const pos = side === 'right' ? 'ml-auto h-full w-full max-w-md' : side === 'full' ? 'h-full w-full' : 'm-auto max-h-full w-full max-w-lg';
   return (
-    <div className="fixed inset-0 z-[60] flex bg-ink/80" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+    <div role="presentation" className="fixed inset-0 z-[60] flex bg-ink/80" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div ref={ref} role="dialog" aria-modal="true" aria-label={label} className={`${pos} relative overflow-y-auto bg-papel ${className}`}>
         {side !== 'full' && (
           <button type="button" onClick={onClose} aria-label="Cerrar" className="btn-round absolute right-4 top-4 z-10 bg-bosque">

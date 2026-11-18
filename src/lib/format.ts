@@ -6,8 +6,16 @@ export const cop = (n: number) =>
 export const ago = (iso: string) => formatDistanceToNow(new Date(iso), { addSuffix: true, locale: es });
 export const dateShort = (iso: string) => format(new Date(iso), 'd MMM yyyy', { locale: es });
 export const dateTime = (iso: string) => format(new Date(iso), 'd MMM yyyy, h:mm a', { locale: es });
+/** Quita los guiones del principio y del final (sin regex: evita el backtracking de /^-+|-+$/). */
+const trimDashes = (s: string) => {
+  let start = 0;
+  let end = s.length;
+  while (start < end && s[start] === '-') start++;
+  while (end > start && s[end - 1] === '-') end--;
+  return s.slice(start, end);
+};
 export const slugify = (s: string) =>
-  s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  trimDashes(s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-'));
 export const phonePretty = (digits: string) => {
   const d = digits.replace(/\D/g, '');
   return d.length === 12 && d.startsWith('57') ? `+57 ${d.slice(2, 5)} ${d.slice(5, 8)} ${d.slice(8)}` : `+${d}`;

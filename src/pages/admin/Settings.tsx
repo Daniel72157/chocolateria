@@ -29,11 +29,11 @@ function HoursEditor({ id, hours, setHours }: { id: string; hours: OpeningHour[]
 export default function Settings() {
   const { data: s } = useSettings();
   const { data: about } = useAbout();
-  const [f, setF] = useState({ storeName: '', whatsappNumber: '', email: '', deliveryFee: 0, freeDeliveryFrom: '' as string | number, address: '', instagramUrl: '', facebookUrl: '', orderMessageFooter: '', plantWhatsappNumber: '', plantEmail: '', plantAddress: '' });
+  const [f, setF] = useState({ storeName: '', whatsappNumber: '', email: '', deliveryFee: 0, freeDeliveryFrom: '' as string | number, address: '', instagramUrl: '', facebookUrl: '', tiktokUrl: '', orderMessageFooter: '', plantWhatsappNumber: '', plantEmail: '', plantAddress: '', plantInstagramUrl: '', plantFacebookUrl: '', plantTiktokUrl: '' });
   const [hours, setHours] = useState<OpeningHour[]>([]);
   const [plantHours, setPlantHours] = useState<OpeningHour[]>([]);
   const [blocks, setBlocks] = useState<AboutRow[]>([]);
-  useEffect(() => { if (s) { setF({ storeName: s.store_name, whatsappNumber: s.whatsapp_number, email: s.email ?? '', deliveryFee: s.delivery_fee, freeDeliveryFrom: s.free_delivery_from ?? '', address: s.address ?? '', instagramUrl: s.instagram_url ?? '', facebookUrl: s.facebook_url ?? '', orderMessageFooter: s.order_message_footer ?? '', plantWhatsappNumber: s.plant_whatsapp_number ?? '', plantEmail: s.plant_email ?? '', plantAddress: s.plant_address ?? '' }); setHours(s.opening_hours); setPlantHours(s.plant_opening_hours ?? []); } }, [s]);
+  useEffect(() => { if (s) { setF({ storeName: s.store_name, whatsappNumber: s.whatsapp_number, email: s.email ?? '', deliveryFee: s.delivery_fee, freeDeliveryFrom: s.free_delivery_from ?? '', address: s.address ?? '', instagramUrl: s.instagram_url ?? '', facebookUrl: s.facebook_url ?? '', tiktokUrl: s.tiktok_url ?? '', orderMessageFooter: s.order_message_footer ?? '', plantWhatsappNumber: s.plant_whatsapp_number ?? '', plantEmail: s.plant_email ?? '', plantAddress: s.plant_address ?? '', plantInstagramUrl: s.plant_instagram_url ?? '', plantFacebookUrl: s.plant_facebook_url ?? '', plantTiktokUrl: s.plant_tiktok_url ?? '' }); setHours(s.opening_hours); setPlantHours(s.plant_opening_hours ?? []); } }, [s]);
   useEffect(() => { if (about) setBlocks(about.map((b) => ({ id: b.id, title: b.title, body: b.body, imageUrl: b.image_url ?? '' }))); }, [about]);
 
   const saveS = useAdminMutation((p: unknown) => api('/admin/settings', json('PUT', p)), { invalidate: [['settings']], ok: 'Ajustes guardados' });
@@ -56,13 +56,15 @@ export default function Settings() {
           {T('email', 'Correo de contacto', { type: 'email' })}
           {T('deliveryFee', 'Costo de domicilio (COP)', { type: 'number', min: 0 })}
           {T('freeDeliveryFrom', 'Domicilio gratis desde (COP, vacío = nunca)', { type: 'number', min: 0 })}
-          {T('instagramUrl', 'Instagram (URL)', { type: 'url' })}{T('facebookUrl', 'Facebook (URL)', { type: 'url' })}
           <div className="sm:col-span-2">{T('orderMessageFooter', 'Pie del mensaje de WhatsApp')}</div>
         </fieldset>
         <fieldset className="grid gap-4 bg-crema p-5 sm:grid-cols-2"><legend className="mb-2 font-display text-2xl">Tienda (punto físico)</legend>
           <p className="t-small sm:col-span-2">Los pedidos de la tienda virtual llegan a este WhatsApp. El mapa se ubica con la dirección escrita.</p>
           {T('whatsappNumber', 'WhatsApp / teléfono (con indicativo, solo dígitos)', { inputMode: 'numeric', placeholder: '573001234567' })}
           <div className="sm:col-span-2">{T('address', 'Dirección')}</div>
+          {T('instagramUrl', 'Instagram de la tienda (URL)', { type: 'url', placeholder: 'https://www.instagram.com/…' })}
+          {T('facebookUrl', 'Facebook de la tienda (URL)', { type: 'url', placeholder: 'https://www.facebook.com/…' })}
+          {T('tiktokUrl', 'TikTok de la tienda (URL)', { type: 'url', placeholder: 'https://www.tiktok.com/@…' })}
           <HoursEditor id="h-shop" hours={hours} setHours={setHours} />
         </fieldset>
         <fieldset className="grid gap-4 bg-crema p-5 sm:grid-cols-2"><legend className="mb-2 font-display text-2xl">Planta de producción</legend>
@@ -70,9 +72,12 @@ export default function Settings() {
           {T('plantWhatsappNumber', 'WhatsApp / teléfono (con indicativo, solo dígitos)', { inputMode: 'numeric', placeholder: '573001234567' })}
           {T('plantEmail', 'Correo de la planta (opcional)', { type: 'email' })}
           <div className="sm:col-span-2">{T('plantAddress', 'Dirección')}</div>
+          {T('plantInstagramUrl', 'Instagram de la planta (URL)', { type: 'url', placeholder: 'https://www.instagram.com/…' })}
+          {T('plantFacebookUrl', 'Facebook de la planta (URL)', { type: 'url', placeholder: 'https://www.facebook.com/…' })}
+          {T('plantTiktokUrl', 'TikTok de la planta (URL)', { type: 'url', placeholder: 'https://www.tiktok.com/@…' })}
           <HoursEditor id="h-plant" hours={plantHours} setHours={setPlantHours} />
         </fieldset>
-        <button className="btn btn-primary justify-self-start" disabled={saveS.isPending}>Guardar ajustes</button>
+        <button type="submit" className="btn btn-primary justify-self-start" disabled={saveS.isPending}>Guardar ajustes</button>
       </form>
 
       <section aria-labelledby="ab" className="grid gap-4">

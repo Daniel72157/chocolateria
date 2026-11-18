@@ -35,10 +35,11 @@ router.put('/settings', validate(settingsInput), async (req, res, next) => {
     const s = req.body;
     const { error } = await supabase.from('store_settings').update({
       store_name: s.storeName, whatsapp_number: s.whatsappNumber, email: s.email || null, delivery_fee: s.deliveryFee, free_delivery_from: s.freeDeliveryFrom,
-      address: s.address || null, opening_hours: s.openingHours, instagram_url: s.instagramUrl || null, facebook_url: s.facebookUrl || null,
+      address: s.address || null, opening_hours: s.openingHours, instagram_url: s.instagramUrl || null, facebook_url: s.facebookUrl || null, tiktok_url: s.tiktokUrl || null,
       maps_embed_url: s.mapsEmbedUrl || null, order_message_footer: s.orderMessageFooter || null,
       plant_whatsapp_number: s.plantWhatsappNumber || null, plant_email: s.plantEmail || null,
       plant_address: s.plantAddress || null, plant_opening_hours: s.plantOpeningHours,
+      plant_instagram_url: s.plantInstagramUrl || null, plant_facebook_url: s.plantFacebookUrl || null, plant_tiktok_url: s.plantTiktokUrl || null,
     }).eq('id', 1);
     if (error) throw error;
     res.json({ data: { ok: true } });

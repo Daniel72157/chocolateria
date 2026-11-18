@@ -55,12 +55,12 @@ export default function LandForm() {
         <h1 className="t-h2 text-4xl">{id ? 'Editar foto' : 'Nueva foto'}</h1>
         <div>
           <p className="label">Foto</p>
-          <div onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={(e) => { e.preventDefault(); setDrag(false); pick(e.dataTransfer.files[0]); }}
+          <div onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={(e) => { e.preventDefault(); setDrag(false); void pick(e.dataTransfer.files[0]); }}
             className={`flex flex-col items-center gap-2 border-2 border-dashed p-6 text-center ${drag ? 'border-oro bg-arena/40' : 'border-tierra/30'}`}>
             {busy ? <Loader2 className="animate-spin" aria-hidden /> : <ImagePlus aria-hidden />}
             <p>{busy ? 'Subiendo foto…' : photo ? 'Arrastra otra foto para reemplazarla' : 'Arrastra aquí la foto'}</p>
             <button type="button" className="btn btn-soft btn-sm" disabled={busy} onClick={() => input.current?.click()}>{photo ? 'Cambiar foto' : 'Elegir foto'}</button>
-            <input ref={input} type="file" accept="image/*" hidden onChange={(e) => { pick(e.target.files?.[0]); e.target.value = ''; }} aria-label="Seleccionar foto" />
+            <input ref={input} type="file" accept="image/*" hidden onChange={(e) => { void pick(e.target.files?.[0]); e.target.value = ''; }} aria-label="Seleccionar foto" />
             <p className="t-small text-tierra">Se muestra en formato vertical (4:5); lo ideal es una foto vertical.</p>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function LandForm() {
           <textarea id="ls" className="field !min-h-[220px] !bg-crema" maxLength={MAX} value={story} onChange={(e) => setStory(e.target.value)} />
           <p className="t-small mt-1 flex justify-between text-tierra"><span>Cada salto de línea crea un párrafo nuevo.</span><span className="num">{story.length}/{MAX}</span></p></div>
         <label className="flex items-center gap-3 bg-crema p-4"><input type="checkbox" className="h-6 w-6 accent-bosque" checked={published} onChange={(e) => setPublished(e.target.checked)} />Mostrar en el inicio</label>
-        <div className="flex gap-3"><button className="btn btn-primary" disabled={save.isPending || busy}>Guardar</button><Link to="/admin/tierra" className="btn btn-light">Cancelar</Link></div>
+        <div className="flex gap-3"><button type="submit" className="btn btn-primary" disabled={save.isPending || busy}>Guardar</button><Link to="/admin/tierra" className="btn btn-light">Cancelar</Link></div>
       </div>
       <aside aria-label="Vista previa" className="lg:sticky lg:top-6 lg:self-start">
         <p className="label">Así se verá la foto</p>

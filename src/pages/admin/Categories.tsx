@@ -27,7 +27,7 @@ function CatalogColumn({ c }: { c: Catalog }) {
         {c.categories.map((k, i) => (
           <li key={k.id} className="flex items-center gap-2 bg-papel p-2">
             {edit === k.id ? (
-              <form className="flex flex-1 gap-2" onSubmit={(e) => { e.preventDefault(); rename.mutate(k); }}><input aria-label="Nuevo nombre" autoFocus className="field !min-h-[40px]" value={editName} onChange={(e) => setEditName(e.target.value)} /><button className="btn btn-primary btn-sm">Guardar</button></form>
+              <form className="flex flex-1 gap-2" onSubmit={(e) => { e.preventDefault(); rename.mutate(k); }}><input aria-label="Nuevo nombre" ref={(el) => el?.focus()} className="field !min-h-[40px]" value={editName} onChange={(e) => setEditName(e.target.value)} /><button type="submit" className="btn btn-primary btn-sm">Guardar</button></form>
             ) : <span className="flex-1 pl-2 font-semibold">{k.name}</span>}
             <button type="button" aria-label={`Subir ${k.name}`} disabled={i === 0} onClick={() => swap.mutate([k, c.categories[i - 1]])} className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-arena disabled:opacity-30"><ArrowUp size={16} /></button>
             <button type="button" aria-label={`Bajar ${k.name}`} disabled={i === c.categories.length - 1} onClick={() => swap.mutate([k, c.categories[i + 1]])} className="flex h-9 w-9 items-center justify-center rounded-full hover:bg-arena disabled:opacity-30"><ArrowDown size={16} /></button>
@@ -38,7 +38,7 @@ function CatalogColumn({ c }: { c: Catalog }) {
       </ul>
       <form className="flex gap-2" onSubmit={(e) => { e.preventDefault(); if (name.trim().length >= 2) create.mutate(); }}>
         <label className="sr-only" htmlFor={`n-${c.slug}`}>Nueva categoría en {c.name}</label>
-        <input id={`n-${c.slug}`} className="field !bg-papel" placeholder="Nueva categoría" value={name} onChange={(e) => setName(e.target.value)} /><button className="btn btn-primary">Crear</button>
+        <input id={`n-${c.slug}`} className="field !bg-papel" placeholder="Nueva categoría" value={name} onChange={(e) => setName(e.target.value)} /><button type="submit" className="btn btn-primary">Crear</button>
       </form>
 
       <details className="bg-papel p-4"><summary className="cursor-pointer font-bold">Portada y textos del catálogo</summary>

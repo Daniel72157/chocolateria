@@ -18,7 +18,7 @@ export default function Pqr() {
   const set = useAdminMutation(({ id, status }: { id: string; status: Status }) => api(`/admin/pqr/${id}`, json('PATCH', { status })), { invalidate: inv, ok: 'Listo' });
   const del = useAdminMutation((id: string) => api(`/admin/pqr/${id}`, json('DELETE')), { invalidate: inv, ok: 'Mensaje eliminado' });
   const sm = data?.summary;
-  const months = Object.entries(sm?.byMonth ?? {}).sort().slice(-6);
+  const months = Object.entries(sm?.byMonth ?? {}).sort(([a], [b]) => a.localeCompare(b)).slice(-6);
   const max = Math.max(1, ...months.map(([, n]) => n));
   return (
     <>

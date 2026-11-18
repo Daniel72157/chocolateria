@@ -405,3 +405,13 @@ De allí viene la idea de ZURYCH: comprar directamente a los productores, reduci
 Cuando hablamos de comercio justo hablamos de esto: de relaciones cercanas, de conocer a quien cultiva y de que el trabajo del campo tenga el reconocimiento que merece.', '/photos/iglesia.webp', 'seed/iglesia', 1600, 1056, 7)
 ) as v(name, tag, title, story, image_url, image_path, width, height, sort_order)
 where not exists (select 1 from land_tiles);
+
+-- =========================================
+-- Redes sociales por local (tienda y planta, cada uno con sus propias cuentas).
+-- instagram_url y facebook_url pasan a ser las de la TIENDA; la planta tiene las suyas.
+-- Se puede ejecutar varias veces sin problema.
+-- =========================================
+alter table store_settings add column if not exists tiktok_url text;
+alter table store_settings add column if not exists plant_instagram_url text;
+alter table store_settings add column if not exists plant_facebook_url text;
+alter table store_settings add column if not exists plant_tiktok_url text;

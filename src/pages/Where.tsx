@@ -1,14 +1,15 @@
-import { Facebook, Instagram, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { MapPin, MessageCircle, Phone } from 'lucide-react';
+import SocialLinks from '../components/ui/SocialLinks';
 import Seo from '../components/ui/Seo';
 import Reveal from '../components/ui/Reveal';
 import { useSettings } from '../hooks/useProducts';
 import { mapEmbedUrl, mapLinkUrl, phonePretty, waUrl } from '../lib/format';
-import type { OpeningHour, StoreSettings } from '../../shared/types';
+import type { OpeningHour } from '../../shared/types';
 
-type PlaceData = { id: string; title: string; intro?: string; phone: string | null; email: string | null; address: string | null; hours: OpeningHour[]; waText: string; tone: string };
+type PlaceData = { id: string; title: string; intro?: string; phone: string | null; email: string | null; address: string | null; hours: OpeningHour[]; waText: string; tone: string; instagram: string | null; facebook: string | null; tiktok: string | null };
 
 /** Tarjeta de un lugar (punto físico o planta): datos a la izquierda, mapa ubicado por la dirección a la derecha. */
-function Place({ p, s }: { p: PlaceData; s: StoreSettings }) {
+function Place({ p }: { p: PlaceData }) {
   return (
     <section id={p.id} aria-labelledby={`${p.id}-t`} className={`on-dark scroll-mt-20 py-14 text-crema md:py-24 ${p.tone}`}>
       <div className="wrap grid gap-10 md:grid-cols-2 md:gap-16">
@@ -26,8 +27,7 @@ function Place({ p, s }: { p: PlaceData; s: StoreSettings }) {
           <div className="mt-8 flex flex-wrap gap-3">
             {p.phone && <a className="btn btn-wa" target="_blank" rel="noopener noreferrer" href={waUrl(p.phone, p.waText)}><MessageCircle size={20} aria-hidden /> WhatsApp</a>}
             {p.phone && <a className="btn btn-gold" href={`tel:+${p.phone}`}><Phone size={20} aria-hidden /> {phonePretty(p.phone)}</a>}
-            {s.instagram_url && <a className="btn btn-light" href={s.instagram_url} target="_blank" rel="noopener noreferrer"><Instagram size={20} aria-hidden /> Instagram</a>}
-            {s.facebook_url && <a className="btn btn-light" href={s.facebook_url} target="_blank" rel="noopener noreferrer"><Facebook size={20} aria-hidden /> Facebook</a>}
+            <SocialLinks variant="buttons" instagram={p.instagram} facebook={p.facebook} tiktok={p.tiktok} label={p.title} />
           </div>
         </Reveal>
         {p.address && (
@@ -60,15 +60,17 @@ export default function Where() {
 
       {s && (
         <>
-          <Place s={s} p={{
+          <Place p={{
             id: 'punto-fisico', title: 'Punto físico', tone: 'bg-ink',
             intro: 'Si lo que deseas es conocer un punto de servicio especializado en cacao, disfrutar de productos únicos o realizar compras al detal, contáctanos.',
             phone: s.whatsapp_number, email: s.email, address: s.address, hours: s.opening_hours, waText: 'Hola, tengo una pregunta sobre la tienda.',
+            instagram: s.instagram_url, facebook: s.facebook_url, tiktok: s.tiktok_url,
           }} />
-          <Place s={s} p={{
+          <Place p={{
             id: 'planta', title: 'Planta de producción', tone: 'bg-bosque',
             intro: 'Si lo que deseas es una asesoría especializada en cacao, comprar al por mayor, realizar un proceso de maquila o hablar con gerencia, contáctanos.',
             phone: s.plant_whatsapp_number, email: s.plant_email, address: s.plant_address, hours: s.plant_opening_hours ?? [], waText: 'Hola, quiero una asesoría con la planta de producción.',
+            instagram: s.plant_instagram_url, facebook: s.plant_facebook_url, tiktok: s.plant_tiktok_url,
           }} />
         </>
       )}

@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { ArrowUp } from 'lucide-react';
 import { useSettings } from '../../hooks/useProducts';
 import { phonePretty } from '../../lib/format';
+import SocialLinks, { type Socials } from '../ui/SocialLinks';
 import type { OpeningHour } from '../../../shared/types';
 
-function PlaceInfo({ title, address, hours, phone, email }: { title: string; address: string | null; hours: OpeningHour[]; phone: string | null; email: string | null }) {
+function PlaceInfo({ title, address, hours, phone, email, socials }: { title: string; address: string | null; hours: OpeningHour[]; phone: string | null; email: string | null; socials: Socials }) {
   return (
     <div>
       <p className="font-bold">{title}</p>
@@ -12,6 +13,7 @@ function PlaceInfo({ title, address, hours, phone, email }: { title: string; add
       {hours.map((h) => <p key={h.day} className="num">{h.day}: {h.hours}</p>)}
       {phone && <p><a className="num underline" href={`tel:+${phone}`}>{phonePretty(phone)}</a></p>}
       {email && <p><a className="underline" href={`mailto:${email}`}>{email}</a></p>}
+      <div className="mt-2"><SocialLinks {...socials} label={title} /></div>
     </div>
   );
 }
@@ -27,15 +29,9 @@ export default function Footer() {
           <div>
             <img src="/brand/logo-sm.webp" alt={s?.store_name ?? 'Chocolate Zurych'} width={420} height={260} className="h-[72px] w-auto" />
             <p className="mt-1 max-w-[30ch]">Chocolate artesanal colombiano. Redescubre el chocolate.</p>
-            {(s?.instagram_url || s?.facebook_url) && (
-              <p className="mt-3 flex gap-4 font-semibold">
-                {s?.instagram_url && <a className="underline" href={s.instagram_url} rel="noopener noreferrer" target="_blank">Instagram</a>}
-                {s?.facebook_url && <a className="underline" href={s.facebook_url} rel="noopener noreferrer" target="_blank">Facebook</a>}
-              </p>
-            )}
           </div>
-          {s && <PlaceInfo title="Punto físico" address={s.address} hours={s.opening_hours} phone={s.whatsapp_number} email={s.email} />}
-          {s && <PlaceInfo title="Planta de producción" address={s.plant_address} hours={s.plant_opening_hours ?? []} phone={s.plant_whatsapp_number} email={s.plant_email} />}
+          {s && <PlaceInfo title="Punto físico" address={s.address} hours={s.opening_hours} phone={s.whatsapp_number} email={s.email} socials={{ instagram: s.instagram_url, facebook: s.facebook_url, tiktok: s.tiktok_url }} />}
+          {s && <PlaceInfo title="Planta de producción" address={s.plant_address} hours={s.plant_opening_hours ?? []} phone={s.plant_whatsapp_number} email={s.plant_email} socials={{ instagram: s.plant_instagram_url, facebook: s.plant_facebook_url, tiktok: s.plant_tiktok_url }} />}
           <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="inline-flex items-start gap-2 font-semibold underline lg:justify-self-end">
             Volver arriba <ArrowUp size={18} aria-hidden />
           </a>
@@ -43,11 +39,11 @@ export default function Footer() {
 
         <div className="mt-auto pt-20">
           <p className="mb-4 text-base font-semibold">Escríbenos por WhatsApp o llámanos</p>
-          <div className="grid gap-6 md:grid-cols-2 md:gap-10">
+          <div className="grid gap-6 md:grid-cols-2 md:gap-12">
             {numbers.map(([label, n]) => (
-              <div key={label}>
+              <div key={label} className="min-w-0">
                 <p className="text-base font-semibold uppercase tracking-wide">{label}</p>
-                <a href={`tel:+${n}`} className="num block whitespace-nowrap font-rust font-normal leading-[0.95] tracking-normal hover:underline" style={{ fontSize: 'clamp(1.75rem, 4.6vw, 4.75rem)' }}>
+                <a href={`tel:+${n}`} className="num block whitespace-nowrap font-rust font-normal leading-[0.95] tracking-normal hover:underline" style={{ fontSize: 'clamp(1.4rem, 3.2vw, 3.25rem)' }}>
                   {phonePretty(n)}
                 </a>
               </div>

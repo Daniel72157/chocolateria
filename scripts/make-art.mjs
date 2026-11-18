@@ -5,7 +5,8 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 
 const C = { k950: '#3b1f1a', k800: '#4d2a22', k600: '#6e4b40', c500: '#bb8833', c300: '#e8c9b2', c200: '#efd9c4', cr100: '#f2e9de', cr50: '#fbf6ef', sal: '#064e44', sal2: '#f2e9de', fr: '#a53d2b' };
 const W = 1000, H = 1250;
-const rnd = (seed) => () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+const rnd = (seed) => () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; // NOSONAR: la conversión a entero de 32 bits es parte del generador (mulberry32); Math.trunc no la reemplaza
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
 const svg = (field, body) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="${field}"/>${body}</svg>`;
 const circ = (x, y, r, f) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${f}"/>`;
 const rect = (x, y, w, h, f, rx = 0, extra = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${f}" ${extra}/>`;

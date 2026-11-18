@@ -29,12 +29,12 @@ export default function ImageList({ value, onChange, bucket, folder, max, withAl
 
   return (
     <div>
-      <div onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={(e) => { e.preventDefault(); setDrag(false); add(e.dataTransfer.files); }}
+      <div onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={(e) => { e.preventDefault(); setDrag(false); void add(e.dataTransfer.files); }}
         className={`flex flex-col items-center gap-2 border-2 border-dashed p-6 text-center ${drag ? 'border-oro bg-arena/40' : 'border-tierra/30'}`}>
         <ImagePlus aria-hidden />
         <p>Arrastra las fotos aquí ({value.length}/{max})</p>
         <button type="button" className="btn btn-soft btn-sm" disabled={value.length >= max || !!busy} onClick={() => input.current?.click()}>Elegir fotos</button>
-        <input ref={input} type="file" accept="image/*" multiple hidden onChange={(e) => { if (e.target.files) add(e.target.files); e.target.value = ''; }} aria-label="Seleccionar imágenes" />
+        <input ref={input} type="file" accept="image/*" multiple hidden onChange={(e) => { if (e.target.files) void add(e.target.files); e.target.value = ''; }} aria-label="Seleccionar imágenes" />
         {busy && <div role="progressbar" aria-valuemin={0} aria-valuemax={busy.total} aria-valuenow={busy.done} className="h-2 w-full max-w-xs bg-crema"><div className="h-full bg-oro transition-all" style={{ width: `${(busy.done / busy.total) * 100}%` }} /></div>}
       </div>
       <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">

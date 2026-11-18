@@ -21,8 +21,8 @@ export default function ProtectedRoute({ children }: { children: ReactNode }) {
         else setState({ status: 'out' });
       }
     };
-    supabase.auth.getSession().then(({ data }) => check(data.session));
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => { check(s); });
+    supabase.auth.getSession().then(({ data }) => check(data.session)).catch(() => setState({ status: 'out' }));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => { void check(s); });
     return () => sub.subscription.unsubscribe();
   }, []);
 

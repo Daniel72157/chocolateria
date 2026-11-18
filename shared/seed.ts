@@ -18,12 +18,16 @@ export const settings: StoreSettings = {
   opening_hours: [{ day: 'Lunes a sábado', hours: '10:00 a. m. – 7:00 p. m.' }, { day: 'Domingos', hours: '10:00 a. m. – 6:00 p. m.' }],
   instagram_url: null,
   facebook_url: null,
+  tiktok_url: null,
   maps_embed_url: null,
   order_message_footer: '¡Gracias por tu pedido!',
   plant_whatsapp_number: '573132584586',
   plant_email: null,
   plant_address: 'Calle 5C #53D-57, piso 3, barrio Gala, Bogotá',
   plant_opening_hours: [{ day: 'Lunes a viernes', hours: '8:00 a. m. – 5:00 p. m.' }],
+  plant_instagram_url: null,
+  plant_facebook_url: null,
+  plant_tiktok_url: null,
 };
 
 const catalogRows = [

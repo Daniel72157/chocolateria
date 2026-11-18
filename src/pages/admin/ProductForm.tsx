@@ -108,8 +108,8 @@ export default function ProductForm() {
       </fieldset>
 
       <div className="flex flex-wrap gap-3">
-        <button className="btn btn-primary" disabled={save.isPending} onClick={() => setAgain(false)}>Guardar</button>
-        <button className="btn btn-soft" disabled={save.isPending} onClick={() => setAgain(true)}>Guardar y crear otro</button>
+        <button type="submit" className="btn btn-primary" disabled={save.isPending} onClick={() => setAgain(false)}>Guardar</button>
+        <button type="submit" className="btn btn-soft" disabled={save.isPending} onClick={() => setAgain(true)}>Guardar y crear otro</button>
         {existing && <Link to={`/producto/${f.slug}`} target="_blank" className="btn btn-light">Ver en la tienda</Link>}
         <Link to="/admin/productos" onClick={(e) => { if (dirty && !window.confirm('Tienes cambios sin guardar. ¿Salir de todos modos?')) e.preventDefault(); }} className="btn btn-light">Cancelar</Link>
       </div>

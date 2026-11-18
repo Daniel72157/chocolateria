@@ -70,12 +70,12 @@ export default function AwardForm() {
         <h1 className="t-h2 text-4xl">{id ? 'Editar reconocimiento' : 'Nuevo reconocimiento'}</h1>
         <div>
           <p className="label">Documento</p>
-          <div onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={(e) => { e.preventDefault(); setDrag(false); pick(e.dataTransfer.files[0]); }}
+          <div onDragOver={(e) => { e.preventDefault(); setDrag(true); }} onDragLeave={() => setDrag(false)} onDrop={(e) => { e.preventDefault(); setDrag(false); void pick(e.dataTransfer.files[0]); }}
             className={`flex flex-col items-center gap-2 border-2 border-dashed p-6 text-center ${drag ? 'border-oro bg-arena/40' : 'border-tierra/30'}`}>
             {busy ? <Loader2 className="animate-spin" aria-hidden /> : <FileUp aria-hidden />}
             <p>{busy ?? (files ? 'Arrastra otro archivo para reemplazarlo' : 'Arrastra aquí el PDF o la imagen')}</p>
             <button type="button" className="btn btn-soft btn-sm" disabled={!!busy} onClick={() => input.current?.click()}>{files ? 'Cambiar archivo' : 'Elegir archivo'}</button>
-            <input ref={input} type="file" accept="application/pdf,.pdf,image/*" hidden onChange={(e) => { pick(e.target.files?.[0]); e.target.value = ''; }} aria-label="Seleccionar PDF o imagen" />
+            <input ref={input} type="file" accept="application/pdf,.pdf,image/*" hidden onChange={(e) => { void pick(e.target.files?.[0]); e.target.value = ''; }} aria-label="Seleccionar PDF o imagen" />
             <p className="t-small text-tierra">PDF, JPG, PNG o WebP · hasta {MAX_MB} MB. Del PDF se muestra la primera página.</p>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function AwardForm() {
         </div>
         <div><label htmlFor="ad" className="label">Descripción (opcional)</label><textarea id="ad" className="field !min-h-[110px] !bg-crema" maxLength={1000} value={description} onChange={(e) => setDescription(e.target.value)} /></div>
         <label className="flex items-center gap-3 bg-crema p-4"><input type="checkbox" className="h-6 w-6 accent-bosque" checked={published} onChange={(e) => setPublished(e.target.checked)} />Mostrar en la página</label>
-        <div className="flex gap-3"><button className="btn btn-primary" disabled={save.isPending || !!busy}>Guardar</button><Link to="/admin/reconocimientos" className="btn btn-light">Cancelar</Link></div>
+        <div className="flex gap-3"><button type="submit" className="btn btn-primary" disabled={save.isPending || !!busy}>Guardar</button><Link to="/admin/reconocimientos" className="btn btn-light">Cancelar</Link></div>
       </div>
       <aside aria-label="Vista previa" className="lg:sticky lg:top-6 lg:self-start">
         <p className="label">Así se verá en Reconocimientos</p>

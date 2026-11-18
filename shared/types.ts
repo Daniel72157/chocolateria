@@ -92,12 +92,16 @@ export type StoreSettings = {
   opening_hours: OpeningHour[];
   instagram_url: string | null;
   facebook_url: string | null;
+  tiktok_url: string | null;
   maps_embed_url: string | null;
   order_message_footer: string | null;
   plant_whatsapp_number: string | null;
   plant_email: string | null;
   plant_address: string | null;
   plant_opening_hours: OpeningHour[];
+  plant_instagram_url: string | null;
+  plant_facebook_url: string | null;
+  plant_tiktok_url: string | null;
 };
 export type AboutSection = { id: string; title: string; body: string; image_url: string | null; sort_order: number };
 

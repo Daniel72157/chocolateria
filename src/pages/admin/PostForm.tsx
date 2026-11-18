@@ -68,7 +68,7 @@ export default function PostForm({ kind: routeKind = 'publicacion' }: { kind?: '
             <label key={l} className="flex items-center gap-3"><input type="checkbox" className="h-6 w-6 accent-bosque" checked={v} onChange={(e) => touch(set)(e.target.checked)} />{l}</label>
           ))}
         </fieldset>
-        <div className="flex gap-3"><button className="btn btn-primary" disabled={save.isPending}>{draft ? 'Guardar borrador' : 'Publicar'}</button><Link to={base} className="btn btn-light">Cancelar</Link></div>
+        <div className="flex gap-3"><button type="submit" className="btn btn-primary" disabled={save.isPending}>{draft ? 'Guardar borrador' : 'Publicar'}</button><Link to={base} className="btn btn-light">Cancelar</Link></div>
       </div>
       <aside aria-label="Vista previa" className="lg:sticky lg:top-6 lg:self-start">
         <p className="label">{interview ? 'Así se verá en Entrevistas' : 'Así se verá en el blog'}</p>
