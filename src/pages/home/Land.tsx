@@ -36,9 +36,9 @@ export default function Land() {
       </div>
       <Modal open={!!open} onClose={() => setOpen(null)} label={open?.title || open?.name || 'Historia'} className="max-w-3xl">
         {open && (
-          <div>
-            <img src={open.image_url} alt={open.name} width={open.width ?? 800} height={open.height ?? 1000} className="max-h-[60svh] w-full object-cover" />
-            <div className="p-6 md:p-8">
+          <div className="flex max-h-[92svh] flex-col">
+            <img src={open.image_url} alt={open.name} width={open.width ?? 800} height={open.height ?? 1000} className="max-h-[34svh] w-full shrink-0 object-cover object-[50%_30%] md:max-h-[42svh]" />
+            <div className="nav-scroll min-h-0 flex-1 overflow-y-auto p-6 md:p-8">
               <h3 className="t-h3 text-[clamp(1.6rem,2.6vw,2.4rem)]">{open.title || open.name}</h3>
               <div className="mt-4 grid gap-3 text-justify hyphens-auto text-lg">{(open.story ?? '').split('\n').map((l, k) => <p key={k}>{l}</p>)}</div>
             </div>
