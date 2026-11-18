@@ -23,7 +23,7 @@ export default function AdminLayout() {
   const out = async () => { await supabase.auth.signOut(); navigate('/admin/login'); };
   return (
     <div className="min-h-[100svh] bg-papel md:flex">
-      <aside className="on-dark bg-ink p-3 text-crema md:sticky md:top-0 md:h-[100svh] md:w-64 md:shrink-0 md:p-5">
+      <aside className="on-dark bg-ink p-3 text-crema md:sticky md:top-0 md:flex md:h-[100svh] md:w-64 md:shrink-0 md:flex-col md:overflow-y-auto md:p-5">
         <p className="hidden font-display text-2xl md:block">Panel</p>
         <nav aria-label="Administración" className="flex gap-1 overflow-x-auto md:mt-6 md:flex-col">
           {LINKS.map(({ to, label, Icon, end, badge }) => (
@@ -33,9 +33,9 @@ export default function AdminLayout() {
             </NavLink>
           ))}
         </nav>
-        <div className="mt-2 hidden gap-1 md:mt-8 md:flex md:flex-col">
-          <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-full px-4 py-3 font-semibold hover:bg-bosque"><ExternalLink size={18} aria-hidden /> Ver la tienda</a>
-          <button type="button" onClick={out} className="flex items-center gap-3 rounded-full px-4 py-3 text-left font-semibold hover:bg-bosque"><LogOut size={18} aria-hidden /> Salir</button>
+        <div className="mt-2 flex gap-1 md:mt-auto md:flex-col md:pt-8">
+          <a href="/" target="_blank" rel="noopener noreferrer" className="flex shrink-0 items-center gap-3 rounded-full px-4 py-3 font-semibold hover:bg-bosque"><ExternalLink size={18} aria-hidden /> Ver la tienda</a>
+          <button type="button" onClick={out} className="flex shrink-0 items-center gap-3 rounded-full px-4 py-3 text-left font-semibold hover:bg-bosque"><LogOut size={18} aria-hidden /> Salir</button>
         </div>
       </aside>
       <main className="min-w-0 flex-1 p-4 md:p-10"><Outlet /></main>
