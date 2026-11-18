@@ -25,7 +25,7 @@ export default function AdminLayout() {
     <div className="min-h-[100svh] bg-papel md:flex">
       <aside className="on-dark bg-ink p-3 text-crema md:sticky md:top-0 md:flex md:h-[100svh] md:w-64 md:shrink-0 md:flex-col md:overflow-y-auto md:p-5">
         <p className="hidden font-display text-2xl md:block">Panel</p>
-        <nav aria-label="Administración" className="flex gap-1 overflow-x-auto md:mt-6 md:flex-col">
+        <nav aria-label="Administración" className="nav-scroll flex gap-1 overflow-x-auto pb-1 md:mt-6 md:min-h-0 md:flex-1 md:flex-col md:overflow-y-auto md:overflow-x-hidden md:pb-0 md:pr-1">
           {LINKS.map(({ to, label, Icon, end, badge }) => (
             <NavLink key={to} to={to} end={end} className={({ isActive }) => `flex shrink-0 items-center gap-3 rounded-full px-4 py-3 font-semibold transition ${isActive ? 'bg-oro text-ink' : 'hover:bg-bosque'}`}>
               <Icon size={18} aria-hidden /> {label}
@@ -33,9 +33,9 @@ export default function AdminLayout() {
             </NavLink>
           ))}
         </nav>
-        <div className="mt-2 flex gap-1 md:mt-auto md:flex-col md:pt-8">
-          <a href="/" target="_blank" rel="noopener noreferrer" className="flex shrink-0 items-center gap-3 rounded-full px-4 py-3 font-semibold hover:bg-bosque"><ExternalLink size={18} aria-hidden /> Ver la tienda</a>
-          <button type="button" onClick={out} className="flex shrink-0 items-center gap-3 rounded-full px-4 py-3 text-left font-semibold hover:bg-bosque"><LogOut size={18} aria-hidden /> Salir</button>
+        <div className="mt-2 flex shrink-0 gap-1 border-t border-crema/15 pt-2 md:mt-4 md:flex-col md:pt-4">
+          <a href="/" target="_blank" rel="noopener noreferrer" className="flex shrink-0 items-center gap-2.5 rounded-full px-4 py-2 text-sm font-semibold text-crema/80 transition hover:bg-bosque hover:text-crema"><ExternalLink size={15} aria-hidden /> Ver la tienda</a>
+          <button type="button" onClick={out} className="flex shrink-0 items-center gap-2.5 rounded-full px-4 py-2 text-left text-sm font-semibold text-crema/80 transition hover:bg-bosque hover:text-crema"><LogOut size={15} aria-hidden /> Salir</button>
         </div>
       </aside>
       <main className="min-w-0 flex-1 p-4 md:p-10"><Outlet /></main>
