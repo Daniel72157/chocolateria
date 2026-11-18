@@ -146,6 +146,19 @@ export const awardInput = z.object({
 export type AwardInput = z.infer<typeof awardInput>;
 export const awardOrderInput = z.object({ ids: z.array(z.string().uuid()).max(500) });
 
+export const landInput = z.object({
+  name: z.string().trim().min(2, 'Escribe el nombre de la foto').max(60),
+  tag: z.string().trim().max(40).optional(),
+  title: z.string().trim().max(120).optional(),
+  story: z.string().trim().max(3000).optional(),
+  imageUrl: z.string().min(1, 'Sube la foto'),
+  imagePath: z.string().min(1),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+  isPublished: z.boolean().default(true),
+});
+export type LandInput = z.infer<typeof landInput>;
+
 export const categoryInput = z.object({
   catalogSlug: z.enum(CATALOG_SLUGS),
   name: z.string().trim().min(2).max(60),
@@ -196,7 +209,7 @@ export const aboutInput = z.object({
     .max(12),
 });
 
-export const BUCKETS = ['products', 'posts', 'catalogs', 'awards'] as const;
+export const BUCKETS = ['products', 'posts', 'catalogs', 'awards', 'land'] as const;
 export const signInput = z
   .object({
     bucket: z.enum(BUCKETS),

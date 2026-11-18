@@ -28,6 +28,8 @@ const Posts = lazy(() => import('./pages/admin/Posts'));
 const PostForm = lazy(() => import('./pages/admin/PostForm'));
 const Awards = lazy(() => import('./pages/admin/Awards'));
 const AwardForm = lazy(() => import('./pages/admin/AwardForm'));
+const AdminLand = lazy(() => import('./pages/admin/Land'));
+const LandForm = lazy(() => import('./pages/admin/LandForm'));
 const AdminPqr =lazy(() => import('./pages/admin/Pqr'));
 const Comments = lazy(() => import('./pages/admin/Comments'));
 const Orders = lazy(() => import('./pages/admin/Orders'));
@@ -73,6 +75,9 @@ export default function App() {
               <Route path="entrevistas" element={<Posts key="entrevista" kind="entrevista" />} />
               <Route path="entrevistas/nueva" element={<PostForm key="entrevista-nueva" kind="entrevista" />} />
               <Route path="entrevistas/:id" element={<PostForm kind="entrevista" />} />
+              <Route path="tierra" element={<AdminLand />} />
+              <Route path="tierra/nueva" element={<LandForm key="nueva" />} />
+              <Route path="tierra/:id" element={<LandForm />} />
               <Route path="reconocimientos" element={<Awards />} />
               <Route path="reconocimientos/nuevo" element={<AwardForm key="nuevo" />} />
               <Route path="reconocimientos/:id" element={<AwardForm />} />

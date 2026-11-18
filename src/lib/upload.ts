@@ -2,7 +2,7 @@ import imageCompression from 'browser-image-compression';
 import { api } from './api';
 import { supabase } from './supabase';
 
-export type Bucket = 'products' | 'posts' | 'catalogs' | 'awards';
+export type Bucket = 'products' | 'posts' | 'catalogs' | 'awards' | 'land';
 type Uploaded = { url: string; path: string; width?: number; height?: number };
 
 /** Pide URL firmada al backend y sube el archivo directo a Storage. */

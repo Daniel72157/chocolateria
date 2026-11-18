@@ -8,6 +8,7 @@ import orders from './orders.admin.js';
 import settings from './settings.admin.js';
 import uploads from '../uploads.routes.js';
 import awards from './awards.admin.js';
+import land from './land.admin.js';
 
 const router = Router();
 router.get('/me', (_req, res) => res.json({ data: res.locals.admin }));
@@ -19,5 +20,6 @@ router.use('/orders', orders);
 router.use('/pqr', pqr);
 router.use('/uploads', uploads);
 router.use('/awards', awards);
+router.use('/land', land);
 router.use('/', settings); // /stats, /settings, /about, /catalogs/:slug
 export default router;

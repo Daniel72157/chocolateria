@@ -1,9 +1,10 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { api } from '../lib/api';
-import type { AboutSection, Catalog, Product, ProductPage, StoreSettings } from '../../shared/types';
+import type { AboutSection, Catalog, LandTile, Product, ProductPage, StoreSettings } from '../../shared/types';
 
 export const useSettings = () => useQuery({ queryKey: ['settings'], queryFn: () => api<StoreSettings>('/settings'), staleTime: 5 * 60_000 });
 export const useAbout = () => useQuery({ queryKey: ['about'], queryFn: () => api<AboutSection[]>('/about') });
+export const useLand = () => useQuery({ queryKey: ['land'], queryFn: () => api<LandTile[]>('/land') });
 export const useCatalogs = () => useQuery({ queryKey: ['catalogs'], queryFn: () => api<Catalog[]>('/catalogs'), staleTime: 5 * 60_000 });
 export const useFeatured = () => useQuery({ queryKey: ['featured'], queryFn: () => api<Product[]>('/products/featured') });
 export const useProduct = (slug?: string) =>

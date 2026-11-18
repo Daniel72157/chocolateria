@@ -141,3 +141,17 @@ export type AdminStats = {
   activeProducts: Record<string, number>;
   latestOrders: OrderRow[];
 };
+
+export type LandTile = {
+  id: string;
+  name: string;
+  tag: string | null;
+  title: string | null;
+  story: string | null;
+  image_url: string;
+  image_path?: string;
+  width: number | null;
+  height: number | null;
+  is_published?: boolean;
+  sort_order?: number;
+};

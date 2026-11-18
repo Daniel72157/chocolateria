@@ -6,6 +6,7 @@ import { validate } from '../middleware/validate.js';
 import { writeLimiter } from '../middleware/rateLimit.js';
 import { pqrInput, commentInput, orderInput, reactionDelete, reactionInput, type OrderInput } from '../../shared/schemas.js';
 import * as seed from '../../shared/seed.js';
+import { landTiles } from '../../shared/land.js';
 import type { Post, PostComment, ReactionType } from '../../shared/types.js';
 import { PAYMENT_LABEL, priceOrder } from '../lib/orders.js';
 import { buildOrderMessage, waLink } from '../lib/whatsapp.js';
@@ -31,6 +32,7 @@ router.get('/settings', (_req, res) => res.json({ data: seed.settings }));
 router.get('/about', (_req, res) => res.json({ data: seed.about }));
 router.get('/catalogs', (_req, res) => res.json({ data: seed.catalogs }));
 router.get('/awards', (_req, res) => res.json({ data: [] }));
+router.get('/land', (_req, res) => res.json({ data: landTiles }));
 
 router.get('/catalogs/:slug/products', (req, res) => {
   const slug = req.params.slug;

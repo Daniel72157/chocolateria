@@ -13,6 +13,7 @@ import orders from './routes/orders.routes.js';
 import pqr from './routes/pqr.routes.js';
 import settings from './routes/settings.routes.js';
 import awards from './routes/awards.routes.js';
+import land from './routes/land.routes.js';
 import sitemap from './routes/sitemap.routes.js';
 import admin from './routes/admin/index.js';
 import demo from './demo/router.js';
@@ -35,6 +36,7 @@ if (isDemo) {
   app.use('/api/products', products);
   app.use('/api/posts', posts);
   app.use('/api/awards', awards);
+  app.use('/api/land', land);
   app.use('/api/orders', writeLimiter, orders);
   app.use('/api/pqr', pqr);
   app.use('/api/admin', requireAdmin, admin);
