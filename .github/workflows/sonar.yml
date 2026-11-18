@@ -23,6 +23,18 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Pruebas con cobertura
+        run: npm run test:coverage
+
       - name: Verificar proyecto existente
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -48,14 +60,14 @@ jobs:
           echo "Proyecto encontrado: ${SONAR_PROJECT_KEY}"
 
       - name: Analisis
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
             -Dsonar.organization=${{ env.SONAR_ORGANIZATION }}
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }}
-            -Dsonar.sources=src,server,shared,api,scripts
-            -Dsonar.exclusions=.github/**,tests/**,**/node_modules/**,dist/**,public/**,supabase/**
-            -Dsonar.tests=tests
+            -Dsonar.exclusions=.github/**,tests/**,**/node_modules/**,dist/**,public/**,supabase/**,coverage/**
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=src/pages/**,src/components/**,src/hooks/**,src/store/**,src/App.tsx,src/main.tsx,src/lib/api.ts,src/lib/supabase.ts,src/lib/upload.ts,src/lib/visitor.ts,server/routes/**,server/app.ts,server/dev.ts,server/demo/**,server/lib/supabase.ts,server/middleware/requireAdmin.ts,server/middleware/errorHandler.ts,server/middleware/rateLimit.ts,api/**,scripts/**,shared/seed.ts,shared/land.ts,shared/types.ts,*.config.ts
             -Dsonar.qualitygate.wait=true

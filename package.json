@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "art": "node scripts/make-art.mjs",
     "seed:sql": "tsx scripts/make-seed.ts"
   },
@@ -46,6 +47,7 @@
     "@types/react-dom": "^18.3.1",
     "@vercel/node": "^3.2.0",
     "@vitejs/plugin-react": "^4.3.2",
+    "@vitest/coverage-v8": "^2.1.9",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.0.1",
     "postcss": "^8.4.47",
