@@ -24,7 +24,7 @@ export default function Land() {
       <div className="wrap">
         <Reveal>
           <h2 id="tierra-title" className="t-h2">Nuestra tierra</h2>
-          <p className="t-lead mt-4 max-w-[40ch]">Una historia que comienza en la tierra. Toca una foto para conocer su historia.</p>
+          <p className="t-lead mt-4 max-w-[40ch] text-justify hyphens-auto">Una historia que comienza en la tierra. Toca una foto para conocer su historia.</p>
         </Reveal>
         <ul className="mt-10 grid grid-cols-2 gap-x-2 gap-y-6 lg:grid-cols-4 lg:gap-x-3">
           {TILES.map((t, i) => (

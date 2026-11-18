@@ -40,7 +40,7 @@ export default function Showcase() {
           <div role="tabpanel" aria-live="polite">
             <h2 id="catalogos-title" className="t-h2">{c?.name ?? 'Tienda virtual'}</h2>
             <p className="t-lead mt-3 text-bosque">{c?.tagline}</p>
-            <p className="mt-6 max-w-[34ch]">{c?.description}</p>
+            <p className="mt-6 max-w-[34ch] text-justify hyphens-auto">{c?.description}</p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2">

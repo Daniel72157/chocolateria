@@ -25,7 +25,7 @@ export default function Contact() {
             <div className="flex flex-col justify-between gap-10 p-8 lg:p-12">
               <h2 id="contacto-title" className="text-[clamp(1.9rem,3vw,2.75rem)] leading-[1.02] text-papel">Escríbenos por WhatsApp</h2>
               <div>
-                <p>Cuéntanos qué necesitas y te respondemos por WhatsApp. También atendemos pedidos de empresas.</p>
+                <p className="text-justify hyphens-auto">Cuéntanos qué necesitas y te respondemos por WhatsApp. También atendemos pedidos de empresas.</p>
                 {s && (
                   <p className="num mt-6 text-base text-arena">
                     {s.opening_hours.map((h) => <span key={h.day} className="block">{h.day}: {h.hours}</span>)}

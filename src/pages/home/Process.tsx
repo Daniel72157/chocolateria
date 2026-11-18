@@ -13,7 +13,7 @@ export default function Process() {
       <div className="wrap grid items-start gap-12 lg:grid-cols-12">
         <Reveal className="lg:col-span-5">
           <h2 id="proceso-title" className="text-[clamp(2.5rem,4.4vw,4.25rem)] text-papel">Del campo a la mesa</h2>
-          <p className="t-lead mt-6 max-w-[30ch] text-papel">Cada producto representa una cadena de trabajo que comienza en el campo, continúa con la transformación del cacao y termina en una experiencia.</p>
+          <p className="t-lead mt-6 max-w-[30ch] text-justify hyphens-auto text-papel">Cada producto representa una cadena de trabajo que comienza en el campo, continúa con la transformación del cacao y termina en una experiencia.</p>
         </Reveal>
         <Reveal delay={0.1} className="lg:col-span-6 lg:col-start-7">
           <div className="paper zig-b mx-auto w-full max-w-[480px] p-7 sm:p-9">

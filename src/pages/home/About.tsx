@@ -18,7 +18,7 @@ export default function About() {
               </Reveal>
               <Reveal delay={0.1} className={i % 2 ? 'md:order-1' : ''}>
                 <h3 className="t-h3 text-[clamp(1.6rem,2.6vw,2.4rem)]">{b.title}</h3>
-                <div className="mt-5 grid max-w-[52ch] gap-4 text-lg">{b.body.split('\n').map((l, k) => <p key={k}>{l}</p>)}</div>
+                <div className="mt-5 grid max-w-[52ch] gap-4 text-justify hyphens-auto text-lg">{b.body.split('\n').map((l, k) => <p key={k}>{l}</p>)}</div>
               </Reveal>
             </div>
           ))}
