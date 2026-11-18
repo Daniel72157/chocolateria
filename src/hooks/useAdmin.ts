@@ -10,8 +10,8 @@ export function useAdminMutation<V = void>(fn: (v: V) => Promise<unknown>, opts:
   return useMutation({
     mutationFn: fn,
     onSuccess: () => {
-      opts.invalidate?.forEach((k) => qc.invalidateQueries({ queryKey: k }));
-      qc.invalidateQueries({ queryKey: ['admin-stats'] });
+      opts.invalidate?.forEach((k) => { void qc.invalidateQueries({ queryKey: k }); });
+      void qc.invalidateQueries({ queryKey: ['admin-stats'] });
       if (opts.ok) toast.ok(opts.ok);
       opts.onDone?.();
     },

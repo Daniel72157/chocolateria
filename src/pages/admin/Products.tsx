@@ -37,7 +37,7 @@ export default function Products() {
       return { prev };
     },
     onError: (e, _v, ctx) => { if (ctx?.prev) qc.setQueryData(listKey, ctx.prev); toast.error(e instanceof ApiError ? e.message : 'No se pudo guardar'); },
-    onSettled: () => { inv.forEach((k) => qc.invalidateQueries({ queryKey: k })); qc.invalidateQueries({ queryKey: ['admin-stats'] }); },
+    onSettled: () => { inv.forEach((k) => { void qc.invalidateQueries({ queryKey: k }); }); void qc.invalidateQueries({ queryKey: ['admin-stats'] }); },
   });
   const del = useAdminMutation((id: string) => api(`/admin/products/${id}`, json('DELETE')), { invalidate: inv, ok: 'Producto eliminado' });
   const dup = useAdminMutation((id: string) => api<{ id: string }>(`/admin/products/${id}/duplicate`, json('POST')), { invalidate: inv, ok: 'Producto duplicado (queda inactivo)' });

@@ -44,6 +44,6 @@ export async function pdfFirstPage(file: File): Promise<Blob> {
     await page.render({ canvasContext: ctx, viewport }).promise;
     return await new Promise<Blob>((ok, fail) => canvas.toBlob((b) => (b ? ok(b) : fail(new Error('No se pudo convertir el PDF'))), 'image/webp', 0.88));
   } finally {
-    doc.destroy();
+    void doc.destroy();
   }
 }

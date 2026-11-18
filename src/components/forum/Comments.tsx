@@ -25,7 +25,7 @@ export default function Comments({ postId, comments, allow = true }: { postId: s
       localStorage.setItem('comment_name', f.authorName);
       reset({ authorName: f.authorName, body: '', website: '' });
       setSent(true);
-      qc.invalidateQueries({ queryKey: ['post', postId] });
+      void qc.invalidateQueries({ queryKey: ['post', postId] });
     } catch (e) { toast.error(e instanceof ApiError ? e.message : 'No se pudo enviar el comentario'); }
   };
   return (

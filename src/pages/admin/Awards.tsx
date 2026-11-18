@@ -23,7 +23,7 @@ export default function Awards() {
       return { prev };
     },
     onError: (e, _v, ctx) => { if (ctx?.prev) qc.setQueryData(KEY, ctx.prev); toast.error(e instanceof ApiError ? e.message : 'No se pudo cambiar el orden'); },
-    onSettled: () => { qc.invalidateQueries({ queryKey: KEY }); qc.invalidateQueries({ queryKey: ['awards'] }); },
+    onSettled: () => { void qc.invalidateQueries({ queryKey: KEY }); void qc.invalidateQueries({ queryKey: ['awards'] }); },
   });
   const move = (i: number, d: number) => {
     if (!data) return;
