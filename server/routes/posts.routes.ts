@@ -14,10 +14,12 @@ router.get('/', async (req, res, next) => {
   try {
     const cursor = typeof req.query.cursor === 'string' ? req.query.cursor : null; // created_at ISO
     const visitorId = typeof req.query.visitorId === 'string' ? req.query.visitorId : null;
+    const kind = req.query.kind === 'entrevista' ? 'entrevista' : 'publicacion';
     let q = supabase
       .from('posts')
-      .select('id, body, is_pinned, allow_comments, created_at, post_media(url, width, height, sort_order)')
+      .select('id, kind, title, video_url, body, is_pinned, allow_comments, created_at, post_media(url, width, height, sort_order)')
       .eq('is_published', true)
+      .eq('kind', kind)
       .order('is_pinned', { ascending: false })
       .order('created_at', { ascending: false })
       .limit(PAGE + 1);
@@ -48,7 +50,7 @@ router.get('/:id', async (req, res, next) => {
     const visitorId = typeof req.query.visitorId === 'string' ? req.query.visitorId : null;
     const { data: p, error } = await supabase
       .from('posts')
-      .select('id, body, is_pinned, allow_comments, created_at, post_media(url, width, height, sort_order)')
+      .select('id, kind, title, video_url, body, is_pinned, allow_comments, created_at, post_media(url, width, height, sort_order)')
       .eq('id', req.params.id).eq('is_published', true).maybeSingle();
     if (error) throw error;
     if (!p) return res.status(404).json({ error: { code: 'not_found', message: 'Publicación no encontrada' } });

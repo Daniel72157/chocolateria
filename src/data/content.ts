@@ -12,14 +12,4 @@ export const STORIES: Record<string, { title: string; text: string }> = {
   iglesia: { title: 'La iglesia', text: 'PENDIENTE: escribe aquí la pequeña historia relacionada con esta foto.' },
 };
 
-export type Award = { title: string; issuer: string; year: string; image?: string; description?: string };
-/** Sellos, reconocimientos y premios. `image` = ruta de la imagen del certificado, ej. '/awards/premio-1.webp'. */
-export const AWARDS: Award[] = [
-  // { title: 'Nombre del premio', issuer: 'Entidad que lo otorga', year: '2025', image: '/awards/premio-1.webp', description: 'Opcional' },
-];
-
-export type Interview = { title: string; outlet: string; date: string; url?: string; image?: string; summary?: string };
-/** Entrevistas realizadas. `url` = enlace a la entrevista (video, nota o podcast). */
-export const INTERVIEWS: Interview[] = [
-  // { title: 'Título de la entrevista', outlet: 'Medio', date: '2025-05-10', url: 'https://…', image: '/interviews/entrevista-1.webp', summary: 'Resumen corto' },
-];
+// Los reconocimientos y las entrevistas se administran desde el panel (/admin).

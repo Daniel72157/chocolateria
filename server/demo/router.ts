@@ -30,6 +30,7 @@ const withMine = (p: Post, visitorId: string | null) => {
 router.get('/settings', (_req, res) => res.json({ data: seed.settings }));
 router.get('/about', (_req, res) => res.json({ data: seed.about }));
 router.get('/catalogs', (_req, res) => res.json({ data: seed.catalogs }));
+router.get('/awards', (_req, res) => res.json({ data: [] }));
 
 router.get('/catalogs/:slug/products', (req, res) => {
   const slug = req.params.slug;
@@ -59,6 +60,8 @@ router.get('/products/:slug', (req, res) => {
 router.get('/posts', (req, res) => {
   const visitorId = typeof req.query.visitorId === 'string' ? req.query.visitorId : null;
   const cursor = typeof req.query.cursor === 'string' ? req.query.cursor : null;
+  // En el modo demo no hay entrevistas de ejemplo.
+  if (req.query.kind === 'entrevista') return res.json({ data: { items: [], nextCursor: null } });
   let list = [...seed.posts].sort((a, b) => Number(b.is_pinned) - Number(a.is_pinned) || b.created_at.localeCompare(a.created_at));
   if (cursor) list = list.filter((p) => !p.is_pinned && p.created_at < cursor);
   const page = list.slice(0, 10);

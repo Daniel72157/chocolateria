@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MessageCircle, Pin } from 'lucide-react';
 import ImageGallery from './ImageGallery';
 import Linkified from './Linkified';
+import VideoEmbed from './VideoEmbed';
 import Reactions from './Reactions';
 import Badge from '../ui/Badge';
 import { useSettings } from '../../hooks/useProducts';
@@ -27,6 +28,10 @@ export default function PostCard({ post, full = false }: { post: Post; full?: bo
         {post.is_pinned && <Badge tone="gold"><Pin size={12} className="mr-1" aria-hidden />Fijado</Badge>}
       </header>
 
+      {post.title && (full
+        ? <h1 className="mt-4 font-display text-2xl font-semibold leading-tight sm:text-3xl">{post.title}</h1>
+        : <h2 className="mt-4 font-display text-xl font-semibold leading-tight sm:text-2xl"><Link to={`/blog/${post.id}`} className="hover:underline">{post.title}</Link></h2>)}
+      {post.video_url && <div className="mt-4"><VideoEmbed url={post.video_url} title={post.title ?? 'Video'} /></div>}
       {post.body && (
         <div className="mt-4">
           <div ref={ref} className={expanded ? '' : 'line-clamp-5'}><Linkified text={post.body} /></div>

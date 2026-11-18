@@ -312,3 +312,44 @@ update store_settings set whatsapp_number = '573025556304',
 address = 'Calle 60 #57-22, local 104, Centro Comercial Quirinal, Bogotá',
 opening_hours = '[{"day":"Lunes a sábado","hours":"10:00 a. m. – 7:00 p. m."},{"day":"Domingos","hours":"10:00 a. m. – 6:00 p. m."}]'::jsonb
 where id = 1;
+
+-- =========================================
+-- Entrevistas: usan la misma tabla del blog (posts) con kind = 'entrevista'.
+-- Se puede ejecutar varias veces sin problema.
+-- =========================================
+alter table posts add column if not exists kind text not null default 'publicacion';
+alter table posts add column if not exists title text;
+alter table posts add column if not exists video_url text;
+do $$ begin
+  alter table posts add constraint posts_kind_check check (kind in ('publicacion','entrevista'));
+exception when duplicate_object then null; end $$;
+create index if not exists posts_kind_feed_idx on posts (kind, is_published, is_pinned desc, created_at desc);
+
+-- =========================================
+-- Reconocimientos: un PDF (o imagen) por reconocimiento + la imagen de su primera página.
+-- =========================================
+create table if not exists awards (
+  id uuid primary key default gen_random_uuid(),
+  title text not null check (char_length(title) between 2 and 160),
+  issuer text,
+  year text,
+  description text,
+  image_url text not null,   -- miniatura (primera página del PDF)
+  image_path text not null,
+  width int,
+  height int,
+  file_url text,             -- PDF original (null si se subió solo una imagen)
+  file_path text,
+  is_published boolean not null default true,
+  sort_order int not null default 0,
+  created_at timestamptz not null default now()
+);
+create index if not exists awards_order_idx on awards (is_published, sort_order, created_at desc);
+alter table awards enable row level security;
+do $$ begin
+  create policy "public read awards" on awards for select using (is_published);
+exception when duplicate_object then null; end $$;
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types) values
+  ('awards', 'awards', true, 15728640, array['application/pdf','image/webp','image/jpeg','image/png'])
+on conflict (id) do update set file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;

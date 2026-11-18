@@ -96,8 +96,14 @@ export const productQuickPatch = z.object({
   isFeatured: z.boolean().optional(),
 });
 
+export const POST_KINDS = ['publicacion', 'entrevista'] as const;
+export type PostKind = (typeof POST_KINDS)[number];
+
 export const postInput = z
   .object({
+    kind: z.enum(POST_KINDS).default('publicacion'),
+    title: z.string().trim().max(160).optional(),
+    videoUrl: z.string().trim().url('Enlace de video inválido').or(z.literal('')).optional(),
     body: z.string().trim().max(5000).optional(),
     isPublished: z.boolean().default(true),
     isPinned: z.boolean().default(false),
@@ -114,11 +120,31 @@ export const postInput = z
       .max(10)
       .default([]),
   })
-  .refine((p) => (p.body && p.body.length > 0) || p.media.length > 0, {
-    message: 'Agrega texto o al menos una imagen',
+  .refine((p) => (p.body && p.body.length > 0) || p.media.length > 0 || !!p.videoUrl, {
+    message: 'Agrega texto, un video o al menos una imagen',
     path: ['body'],
+  })
+  .refine((p) => p.kind !== 'entrevista' || (p.title && p.title.length >= 2), {
+    message: 'Escribe el título de la entrevista',
+    path: ['title'],
   });
 export type PostInput = z.infer<typeof postInput>;
+
+export const awardInput = z.object({
+  title: z.string().trim().min(2, 'Escribe el nombre del reconocimiento').max(160),
+  issuer: z.string().trim().max(160).optional(),
+  year: z.string().trim().max(20).optional(),
+  description: z.string().trim().max(1000).optional(),
+  imageUrl: z.string().min(1, 'Sube el PDF o la imagen del reconocimiento'),
+  imagePath: z.string().min(1),
+  width: z.number().int().optional(),
+  height: z.number().int().optional(),
+  fileUrl: z.string().nullable().optional(),
+  filePath: z.string().nullable().optional(),
+  isPublished: z.boolean().default(true),
+});
+export type AwardInput = z.infer<typeof awardInput>;
+export const awardOrderInput = z.object({ ids: z.array(z.string().uuid()).max(500) });
 
 export const categoryInput = z.object({
   catalogSlug: z.enum(CATALOG_SLUGS),
@@ -170,13 +196,16 @@ export const aboutInput = z.object({
     .max(12),
 });
 
-export const signInput = z.object({
-  bucket: z.enum(['products', 'posts', 'catalogs']),
-  folder: z.string().regex(/^[a-z0-9-]+$/),
-  contentType: z.enum(['image/webp', 'image/jpeg', 'image/png']),
-});
+export const BUCKETS = ['products', 'posts', 'catalogs', 'awards'] as const;
+export const signInput = z
+  .object({
+    bucket: z.enum(BUCKETS),
+    folder: z.string().regex(/^[a-z0-9-]+$/),
+    contentType: z.enum(['image/webp', 'image/jpeg', 'image/png', 'application/pdf']),
+  })
+  .refine((s) => s.contentType !== 'application/pdf' || s.bucket === 'awards', { message: 'Los PDF solo se permiten en reconocimientos', path: ['contentType'] });
 export const deleteUploadInput = z.object({
-  bucket: z.enum(['products', 'posts', 'catalogs']),
+  bucket: z.enum(BUCKETS),
   path: z.string().min(3),
 });
 

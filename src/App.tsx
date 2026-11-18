@@ -26,7 +26,9 @@ const ProductForm = lazy(() => import('./pages/admin/ProductForm'));
 const Categories = lazy(() => import('./pages/admin/Categories'));
 const Posts = lazy(() => import('./pages/admin/Posts'));
 const PostForm = lazy(() => import('./pages/admin/PostForm'));
-const AdminPqr = lazy(() => import('./pages/admin/Pqr'));
+const Awards = lazy(() => import('./pages/admin/Awards'));
+const AwardForm = lazy(() => import('./pages/admin/AwardForm'));
+const AdminPqr =lazy(() => import('./pages/admin/Pqr'));
 const Comments = lazy(() => import('./pages/admin/Comments'));
 const Orders = lazy(() => import('./pages/admin/Orders'));
 const OrderDetail = lazy(() => import('./pages/admin/OrderDetail'));
@@ -68,6 +70,12 @@ export default function App() {
               <Route path="publicaciones" element={<Posts />} />
               <Route path="publicaciones/nueva" element={<PostForm />} />
               <Route path="publicaciones/:id" element={<PostForm />} />
+              <Route path="entrevistas" element={<Posts key="entrevista" kind="entrevista" />} />
+              <Route path="entrevistas/nueva" element={<PostForm key="entrevista-nueva" kind="entrevista" />} />
+              <Route path="entrevistas/:id" element={<PostForm kind="entrevista" />} />
+              <Route path="reconocimientos" element={<Awards />} />
+              <Route path="reconocimientos/nuevo" element={<AwardForm key="nuevo" />} />
+              <Route path="reconocimientos/:id" element={<AwardForm />} />
               <Route path="comentarios" element={<Comments />} />
               <Route path="pqr" element={<AdminPqr />} />
               <Route path="pedidos" element={<Orders />} />

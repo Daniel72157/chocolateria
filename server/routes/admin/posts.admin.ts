@@ -4,7 +4,7 @@ import { validate } from '../../middleware/validate.js';
 import { postInput, type PostInput } from '../../../shared/schemas.js';
 
 const router = Router();
-const SELECT = 'id, body, is_published, is_pinned, allow_comments, created_at, post_media(url, path, width, height, sort_order)';
+const SELECT = 'id, kind, title, video_url, body, is_published, is_pinned, allow_comments, created_at, post_media(url, path, width, height, sort_order)';
 
 async function saveMedia(postId: string, p: PostInput) {
   const { data: old } = await supabase.from('post_media').select('path').eq('post_id', postId);
@@ -18,9 +18,15 @@ async function saveMedia(postId: string, p: PostInput) {
   if (stale.length) await supabase.storage.from('posts').remove(stale);
 }
 
-router.get('/', async (_req, res, next) => {
+const row = (p: PostInput) => ({
+  kind: p.kind, title: p.title || null, video_url: p.videoUrl || null,
+  body: p.body ?? null, is_published: p.isPublished, is_pinned: p.isPinned, allow_comments: p.allowComments,
+});
+
+router.get('/', async (req, res, next) => {
   try {
-    const { data, error } = await supabase.from('posts').select(SELECT).order('is_pinned', { ascending: false }).order('created_at', { ascending: false });
+    const kind = req.query.kind === 'entrevista' ? 'entrevista' : 'publicacion';
+    const { data, error } = await supabase.from('posts').select(SELECT).eq('kind', kind).order('is_pinned', { ascending: false }).order('created_at', { ascending: false });
     if (error) throw error;
     const ids = data.map((p) => p.id);
     const [{ data: reacts }, { data: coms }] = await Promise.all([
@@ -50,9 +56,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', validate(postInput), async (req, res, next) => {
   try {
     const p = req.body as PostInput;
-    const { data, error } = await supabase.from('posts').insert({
-      author_id: res.locals.admin.user_id, body: p.body ?? null, is_published: p.isPublished, is_pinned: p.isPinned, allow_comments: p.allowComments,
-    }).select('id').single();
+    const { data, error } = await supabase.from('posts').insert({ author_id: res.locals.admin.user_id, ...row(p) }).select('id').single();
     if (error) throw error;
     await saveMedia(data.id, p);
     res.status(201).json({ data: { id: data.id } });
@@ -62,7 +66,7 @@ router.post('/', validate(postInput), async (req, res, next) => {
 router.put('/:id', validate(postInput), async (req, res, next) => {
   try {
     const p = req.body as PostInput;
-    const { error } = await supabase.from('posts').update({ body: p.body ?? null, is_published: p.isPublished, is_pinned: p.isPinned, allow_comments: p.allowComments }).eq('id', req.params.id);
+    const { error } = await supabase.from('posts').update(row(p)).eq('id', req.params.id);
     if (error) throw error;
     await saveMedia(req.params.id, p);
     res.json({ data: { id: req.params.id } });

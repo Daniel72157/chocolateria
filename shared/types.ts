@@ -47,6 +47,9 @@ export type ProductPage = { items: Product[]; page: number; total: number; pageS
 export type PostMedia = { url: string; width: number | null; height: number | null; sort_order: number };
 export type Post = {
   id: string;
+  kind?: 'publicacion' | 'entrevista';
+  title?: string | null;
+  video_url?: string | null;
   body: string | null;
   is_pinned: boolean;
   allow_comments?: boolean;
@@ -60,6 +63,23 @@ export type Post = {
 export type PostFeed = { items: Post[]; nextCursor: string | null };
 export type PostComment = { id: string; author_name: string; body: string; created_at: string; status?: CommentStatus };
 export type PostDetail = Post & { comments: PostComment[] };
+
+export type Award = {
+  id: string;
+  title: string;
+  issuer: string | null;
+  year: string | null;
+  description: string | null;
+  image_url: string;
+  image_path?: string;
+  width: number | null;
+  height: number | null;
+  file_url: string | null;
+  file_path?: string | null;
+  is_published?: boolean;
+  sort_order?: number;
+  created_at?: string;
+};
 
 export type OpeningHour = { day: string; hours: string };
 export type StoreSettings = {
