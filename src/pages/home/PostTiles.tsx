@@ -35,8 +35,8 @@ export default function PostTiles() {
               </Reveal>
             );
           })}
-          <li className="col-span-2 lg:col-span-1">
-            <Link to="/blog" className="flex h-full min-h-[160px] flex-col justify-between bg-oro p-5 transition hover:bg-crema lg:aspect-[4/5]">
+          <li className="col-span-2 min-w-0 lg:col-span-1">
+            <Link to="/blog" className="flex h-full min-h-[160px] flex-col justify-between bg-oro p-5 transition hover:bg-crema">
               <span className="font-display text-2xl leading-tight">Entra al blog</span>
               <span className="font-semibold">Reacciona y comenta →</span>
             </Link>
