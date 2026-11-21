@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useSettings } from '../../hooks/useProducts';
-import { waUrl } from '../../lib/format';
+import WhatsAppChoice from '../../components/ui/WhatsAppChoice';
 
 /** Portada: una foto grande de la montaña y el nombre de la tienda. */
 export default function Hero() {
-  const { data: s } = useSettings();
   return (
     <section aria-labelledby="hero-title" className="on-dark relative isolate flex min-h-[calc(100svh-72px)] items-end overflow-hidden bg-ink">
       <img src="/photos/montana.webp" alt="Montaña verde al atardecer, de donde viene nuestro cacao" width={1600} height={844} fetchPriority="high"
@@ -16,7 +14,7 @@ export default function Hero() {
         <p className="t-lead mt-6 max-w-[38ch] text-justify hyphens-auto text-papel">Empresa colombiana, familiar y artesanal. Transformamos el cacao de agricultores de Santander en chocolate de calidad, origen y autenticidad.</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link to="/tienda" className="btn btn-gold">Tienda virtual</Link>
-          {s && <a href={waUrl(s.whatsapp_number, 'Hola, quiero hacer un pedido.')} target="_blank" rel="noopener noreferrer" className="btn btn-light">Pedir por WhatsApp</a>}
+          <WhatsAppChoice message="Hola, quiero hacer un pedido." className="btn btn-light">Pedir por WhatsApp</WhatsAppChoice>
         </div>
       </div>
     </section>

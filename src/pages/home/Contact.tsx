@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSettings } from '../../hooks/useProducts';
-import { waUrl } from '../../lib/format';
+import WhatsAppChoice from '../../components/ui/WhatsAppChoice';
 import Reveal from '../../components/ui/Reveal';
 
 /** Cupón para recortar: el formulario abre WhatsApp con el mensaje ya escrito (no hay servidor de por medio). */
@@ -9,12 +9,9 @@ export default function Contact() {
   const [name, setName] = useState('');
   const [when, setWhen] = useState('');
   const [what, setWhat] = useState('');
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!s) return;
-    const text = [`Hola, soy ${name || 'un cliente'}.`, what && `Me gustaría: ${what}`, when && `Lo necesito para: ${when}`].filter(Boolean).join('\n');
-    window.open(waUrl(s.whatsapp_number, text), '_blank', 'noopener');
-  };
+  const [open, setOpen] = useState(false);
+  const message = [`Hola, soy ${name || 'un cliente'}.`, what && `Me gustaría: ${what}`, when && `Lo necesito para: ${when}`].filter(Boolean).join('\n');
+  const submit = (e: React.FormEvent) => { e.preventDefault(); setOpen(true); };
   return (
     <section aria-labelledby="contacto-title" className="bg-crema pb-[clamp(72px,12vw,160px)]">
       <div className="wrap">
@@ -42,7 +39,8 @@ export default function Contact() {
               <input id="c-when" className="field !bg-tierra !text-papel placeholder:!text-crema" placeholder="¿Para cuándo lo necesitas?" value={when} onChange={(e) => setWhen(e.target.value)} />
               <label className="sr-only" htmlFor="c-what">¿Qué se te antoja?</label>
               <textarea id="c-what" className="field !min-h-[120px] !bg-tierra !text-papel placeholder:!text-crema" placeholder="¿Qué se te antoja?" value={what} onChange={(e) => setWhat(e.target.value)} />
-              <button type="submit" className="btn min-h-[56px] bg-ink text-papel hover:bg-oro hover:text-ink">Abrir WhatsApp con mi mensaje</button>
+              <button type="submit" className="sr-only" tabIndex={-1} aria-hidden>Abrir opciones de WhatsApp</button>
+              <WhatsAppChoice block open={open} onOpenChange={setOpen} message={message} className="btn min-h-[56px] w-full bg-ink text-papel hover:bg-oro hover:text-ink">Abrir WhatsApp con mi mensaje</WhatsAppChoice>
             </form>
           </div>
         </Reveal>

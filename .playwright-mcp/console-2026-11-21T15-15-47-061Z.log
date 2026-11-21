@@ -1,0 +1,73 @@
+[    4536ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=dd2e5add:21551
+[    4642ms] [ERROR] Warning: React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.%s fetchPriority fetchpriority 
+    at img
+    at section
+    at Hero
+    at Home (http://localhost:5173/@fs/C:/Users/danie/Desktop/chocolateria/src/pages/Home.tsx:31:23)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4112:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4518:26)
+    at main
+    at div
+    at PublicLayout (http://localhost:5173/@fs/C:/Users/danie/Desktop/chocolateria/src/components/layout/PublicLayout.tsx:27:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4112:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4582:5)
+    at Suspense
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4525:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:5263:5)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-query.js?v=db7d78f9:26:30)
+    at App
+    at _a (http://localhost:5173/node_modules/.vite/deps/react-helmet-async.js?v=b1e02a2e:624:5) @ http://localhost:5173/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=dd2e5add:521
+[    4858ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4417
+[    4859ms] [WARNING] ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4417
+[    4891ms] [WARNING] Failed to decode downloaded font: http://localhost:5173/fonts/BubbleboddyNeue-Trial.woff2 @ http://localhost:5173/:1
+[    4892ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008821359 @ http://localhost:5173/:1
+[   18016ms] [WARNING] Failed to decode downloaded font: http://localhost:5173/fonts/BubbleboddyNeue-Trial.woff2 @ http://localhost:5173/:1
+[   18016ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008821359 @ http://localhost:5173/:1
+[   25436ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=dd2e5add:21551
+[   25476ms] [ERROR] Warning: React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.%s fetchPriority fetchpriority 
+    at img
+    at section
+    at Hero
+    at Home (http://localhost:5173/@fs/C:/Users/danie/Desktop/chocolateria/src/pages/Home.tsx?t=1795274164887:31:23)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4112:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4518:26)
+    at main
+    at div
+    at PublicLayout (http://localhost:5173/@fs/C:/Users/danie/Desktop/chocolateria/src/components/layout/PublicLayout.tsx:27:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4112:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4582:5)
+    at Suspense
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4525:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:5263:5)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-query.js?v=db7d78f9:26:30)
+    at App
+    at _a (http://localhost:5173/node_modules/.vite/deps/react-helmet-async.js?v=b1e02a2e:624:5) @ http://localhost:5173/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=dd2e5add:521
+[   25589ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4417
+[   25589ms] [WARNING] ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4417
+[   25591ms] [WARNING] Failed to decode downloaded font: http://localhost:5173/fonts/BubbleboddyNeue-Trial.woff2 @ http://localhost:5173/:1
+[   25591ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008821359 @ http://localhost:5173/:1
+[   33200ms] [WARNING] Failed to decode downloaded font: http://localhost:5173/fonts/BubbleboddyNeue-Trial.woff2 @ http://localhost:5173/:1
+[   33200ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008821359 @ http://localhost:5173/:1
+[   33381ms] [INFO] %cDownload the React DevTools for a better development experience: https://reactjs.org/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=dd2e5add:21551
+[   33420ms] [ERROR] Warning: React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.%s fetchPriority fetchpriority 
+    at img
+    at section
+    at Hero
+    at Home (http://localhost:5173/@fs/C:/Users/danie/Desktop/chocolateria/src/pages/Home.tsx?t=1795274164887:31:23)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4112:5)
+    at Outlet (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4518:26)
+    at main
+    at div
+    at PublicLayout (http://localhost:5173/@fs/C:/Users/danie/Desktop/chocolateria/src/components/layout/PublicLayout.tsx:27:24)
+    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4112:5)
+    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4582:5)
+    at Suspense
+    at Router (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4525:15)
+    at BrowserRouter (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:5263:5)
+    at QueryClientProvider (http://localhost:5173/node_modules/.vite/deps/@tanstack_react-query.js?v=db7d78f9:26:30)
+    at App
+    at _a (http://localhost:5173/node_modules/.vite/deps/react-helmet-async.js?v=b1e02a2e:624:5) @ http://localhost:5173/node_modules/.vite/deps/chunk-RPCDYKBN.js?v=dd2e5add:521
+[   33471ms] [WARNING] ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4417
+[   33472ms] [WARNING] ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath. @ http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=7cdc8716:4417
+[   33473ms] [WARNING] Failed to decode downloaded font: http://localhost:5173/fonts/BubbleboddyNeue-Trial.woff2 @ http://localhost:5173/:1
+[   33473ms] [WARNING] OTS parsing error: invalid sfntVersion: 1008821359 @ http://localhost:5173/:1

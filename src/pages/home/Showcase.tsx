@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { useCatalogs, useSettings } from '../../hooks/useProducts';
-import { waUrl } from '../../lib/format';
+import { useCatalogs } from '../../hooks/useProducts';
+import WhatsAppChoice from '../../components/ui/WhatsAppChoice';
 import Skeleton from '../../components/ui/Skeleton';
 
 /** Los tres catálogos como una placa cuadrada y tres pestañas; cada pestaña cambia la placa. */
 export default function Showcase() {
   const { data: catalogs } = useCatalogs();
-  const { data: s } = useSettings();
   const [active, setActive] = useState(0);
   const reduce = useReducedMotion();
   const c = catalogs?.[active];
@@ -45,7 +44,7 @@ export default function Showcase() {
 
           <div className="grid gap-3 sm:grid-cols-2">
             <Link to={c ? `/tienda/${c.slug}` : '/tienda'} className="btn btn-primary min-h-[64px]">Entrar a {c?.name ?? 'la tienda'}</Link>
-            {s && <a href={waUrl(s.whatsapp_number, `Hola, me interesa la categoría ${c?.name ?? ''}.`)} target="_blank" rel="noopener noreferrer" className="btn btn-paper min-h-[64px]">Preguntar por WhatsApp</a>}
+            <WhatsAppChoice block align="right" message={`Hola, me interesa la categoría ${c?.name ?? ''}.`} className="btn btn-paper min-h-[64px] w-full">Preguntar por WhatsApp</WhatsAppChoice>
           </div>
         </div>
       </div>
